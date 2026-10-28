@@ -1,0 +1,694 @@
+schema_version: 1
+bundle_id: bundle.one-up-on-wall-street
+book:
+  title: 彼得·林奇的成功投资（One Up on Wall Street）
+  author: 彼得·林奇、约翰·罗瑟查尔德（刘建位、徐晓杰 译，机械工业出版社2010）
+  source_pack: 彼得·林奇的成功投资_合并转写稿.md（导论+三部分20章+33张图表转写）
+  baseline_tag: distill-2026-10
+entry:
+  name: peter-lynch-invest-skill
+  description: '基于《彼得·林奇的成功投资》的 A 股选股分析工具包：先给公司归类（缓慢增长/稳定增长/快速增长/周期/困境反转/隐蔽资产六类），
+
+    按类型设定期望与卖出判据，用 P/E 与收益口径估值，用 13 项财务指标核查基本面，用双向清单筛选候选，
+
+    识别 12 种危险心理说法。适用 trigger：分析个股基本面、估值贵不贵、该不该卖、持仓复查、组合搭配；
+
+    不适用：预测大盘涨跌、期权期货卖空、短线择时。每张能力卡含独立「A股适配」小节（编译者补充，非原书内容）。
+
+    '
+  core_principles:
+  - 投资的是公司，不是股市；不预测市场，唯一的买入信号是找到值得研究的公司
+  - 先分类后行动：六类公司分类决定买入期望、核查重点与卖出判据
+  - 股价长期跟随收益：P/E 与增长率比较、与历史比较、与整体市场比较，绝不买超高 P/E
+  - 发现只是第一步：下单前必须完成研究并能两分钟讲清"故事"（为什么买、成功条件、风险）
+  - 卖出按类型判据执行，价格下跌本身不是卖出理由；"拔掉鲜花浇灌野草"是最大错误
+  - 避开热门股、故事股、多元恶化与一切期权期货卖空
+  out_of_scope:
+  - 大盘/指数走势预测与择时（书中明确否定）
+  - 期权、期货、卖空策略（书中结论为明确不做，仅提供否定理由）
+  - 债券与基金选择的完整方法（书中仅作收益对比论据）
+  - 具体个股买卖推荐
+  stop_conditions:
+  - 公司类型无法判定时，先回到分类能力完成归型，不带着模糊类型继续分析
+  - 关键财务数据（收益、负债、现金、增长率）缺失时先补数据，不猜值
+  - 用户资金为两三年内必需用途或未通过入市三问时，停止选股分析（U12）
+  - 候选命中避买清单硬性红旗（热门股/多元恶化/单一客户依赖等）时，直接排除不再进入估值
+router_entry:
+  name: peter-lynch-invest-skill-router
+  description: '《彼得·林奇的成功投资》来源路由入口：当用户的股票分析任务未命中任一晋级 Skill 的触发条件，
+
+    或需要书中未被晋级为独立入口的能力（两分钟独白、定期复查、组合纪律、入市自测、调研程序）时，
+
+    经此入口到达全部 12 张能力卡。trigger：林奇/Lynch/彼得林奇选股法、业余投资者优势、
+
+    "帮我用林奇的方法…"、持仓复查节奏、调研一家上市公司的方法等。
+
+    '
+promotion_budget: 8
+capabilities:
+- capability_id: cap.one-up-on-wall-street.classify-six-types
+  revision: 1
+  status: active
+  slug: classify-six-types
+  title: 六类公司分类判定
+  importance: critical
+  importance_rationale: 全书中枢（task-01/task-13）：第7章一切规则按类型分叉，17.4卖出判据、15.1核查清单、独白模板均以分类为前置；分类错误导致期望与卖出规则全错
+  one_liner: 先归类再谈买卖——用增长率与收益形态把公司放入六类之一，类型决定一切后续规则
+  intents:
+  - 判断一家公司属于六类中的哪一类
+  - 判断热门产品对公司的意义（产品净利润占比测算）
+  - 评估一家大公司股票的上涨空间上限
+  keywords:
+  - 六类公司
+  - 分类
+  - 缓慢增长型
+  - 稳定增长型
+  - 快速增长型
+  - 周期型
+  - 困境反转
+  - 隐蔽资产
+  - tenbagger
+  - 10倍股
+  - 公司分类
+  - classify company
+  - stock type
+  also_read:
+  - analyze-checklist-ch15
+  - sell-rules-by-type
+  - two-minute-story
+  card: cards/classify-six-types.md
+  frontmatter:
+    description: '判定一家上市公司属于六类（缓慢增长/稳定增长/快速增长/周期/困境反转/隐蔽资产）中的哪一类，
+
+      并测算热门产品对净利润的影响占比。trigger："这是什么类型的股票/公司"、"这家公司算周期股还是成长股"、
+
+      "XX产品这么火能买它股票吗"、"这公司涨了这么多了还能涨吗"。输出：类型判定+判定依据+类型对应的期望收益与后续核查入口。
+
+      不做估值与买卖决策（交给相邻能力）；六类边界模糊区间按书中口径给出最近似类型并标注不确定。
+
+      A股适配小节处理行业分类与增长率口径差异。
+
+      '
+    tags:
+    - decision
+    - framework
+    - stock-classification
+  source_evidence:
+  - source_id: src-main-book
+    location: 第7章 L993-1456（7.1产品占比/7.2规模/7.3六型定义/7.4类型迁移/7.5区别对待）；导论0.6；13.1
+  promotion:
+    destination: promoted
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: true
+      independent_eval: true
+    notes: 用户会单独问"这是哪类公司"；输入(公司概况/增长率/收益形态)输出(类型+依据)自含；每次个股分析复用；正负例清晰
+- capability_id: cap.one-up-on-wall-street.sell-rules-by-type
+  revision: 1
+  status: active
+  slug: sell-rules-by-type
+  title: 分类型卖出判据
+  importance: critical
+  importance_rationale: task-02，用户单元①核心：第17章17.4六类卖出清单是全书唯一系统化卖出规则；错误持有（该卖不卖/不该卖乱卖）是散户最大亏损来源
+  one_liner: 卖出看类型不看浮盈浮亏——缓慢增长涨30-50%兑现、周期在低P/E时警惕、快速增长盯同店与扩张失速
+  intents:
+  - 判断一只持仓股票现在该不该卖
+  - 区分"基本面恶化必须卖"与"价格波动不用卖"
+  - 识别煽动效应与过早卖出陷阱
+  keywords:
+  - 何时卖出
+  - 卖出判据
+  - 止损
+  - 过早卖出
+  - 煽动效应
+  - 分类型卖出
+  - when to sell
+  - sell rules
+  also_read:
+  - classify-six-types
+  - recheck-holdings
+  - dangerous-sayings
+  card: cards/sell-rules-by-type.md
+  frontmatter:
+    description: '按公司类型套用第17章17.4卖出判据：缓慢增长（涨30-50%或股息停滞）、稳定增长（涨50%-100%或增速失守）、
+
+      周期（存货/产能/低P/E预警）、快速增长（同店销售降3%、扩张失速、30倍P/E配15-20%增长）、困境反转（债务回升/重整停滞）、
+
+      隐蔽资产（等资产价值兑现）。trigger："该不该卖""涨了这么多要不要落袋""跌了要不要割"。
+
+      价格下跌本身不是卖出理由；与定期复查（recheck-holdings）联动区分核查与卖出。
+
+      '
+    tags:
+    - decision
+    - checklist
+    - selling
+  source_evidence:
+  - source_id: src-main-book
+    location: 第17章 L3496-3742（17.1-17.4，表17-1/17-2）；第16章"不要拔掉鲜花浇灌野草"L3468-3492
+  promotion:
+    destination: promoted
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: true
+      independent_eval: true
+    notes: 该不该卖是最高频独立意图；判据自含（未分类时内嵌类型速查）；持有期反复调用；每类型判据可作正负断言
+- capability_id: cap.one-up-on-wall-street.stock-screening-checklists
+  revision: 1
+  status: active
+  slug: stock-screening-checklists
+  title: 双向筛选清单（13条选股准则+避而不买清单）
+  importance: critical
+  importance_rationale: task-03/task-04，用户单元②：第8/9章双向清单是候选准入的第一道闸门；合并为单能力因输出契约相同（候选公司→清单核对→纳入/排除结论），且用户意图单一（"帮我把关这只股票"）
+  one_liner: 双向把关——枯燥乏味是优点（13条准则加分），热门花哨是红旗（6类避买直接排除）
+  intents:
+  - 用13条理想特征为候选公司打分
+  - 用负面清单排除候选（热门股/下一个/多元恶化/小道消息/大客户依赖/花哨名字）
+  - 判断一条股票线索值不值得继续研究
+  keywords:
+  - 选股准则
+  - 13条
+  - 避而不买
+  - 热门股
+  - 多元恶化
+  - 小道消息
+  - 利基
+  - 分拆
+  - 内部人士买入
+  - 回购
+  - stock screening
+  - avoid list
+  also_read:
+  - pe-valuation
+  - financial-checklist-13
+  card: cards/stock-screening-checklists.md
+  frontmatter:
+    description: '对候选公司做双向筛选：正向13条准则（名字业务枯燥/分拆/无机构关注/利基/内部人士买入/回购等）逐条命中打分；
+
+      负向6类避买（热门行业热门股/"下一个XX"/多元恶化/小声耳语/25%-50%依赖单一大客户/花哨名字）命中任一硬红旗即排除。
+
+      trigger："这股票值不值得研究/帮我把关""这公司是不是雷""XX概念股能碰吗"。
+
+      输出：正向命中清单+负向红旗判定+是否进入下一步研究。只做筛选不做估值。
+
+      '
+    tags:
+    - checklist
+    - screening
+    - negative-checklist
+  source_evidence:
+  - source_id: src-main-book
+    location: 第8章 L1458-1870（13条准则+表8-1）；第9章 L1872-2063（6类避买）
+  promotion:
+    destination: promoted
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: true
+      independent_eval: true
+    notes: U03+U04合并晋级：同一筛选任务的正反两面，输出契约一致；合并避免同意图双触发
+- capability_id: cap.one-up-on-wall-street.pe-valuation
+  revision: 1
+  status: active
+  slug: pe-valuation
+  title: 市盈率与收益估值口径
+  importance: critical
+  importance_rationale: task-05/task-14，用户单元③：P/E是全书唯一系统估值口径；"绝不买超高P/E"是硬红线；收益线背离是作者图形论证核心
+  one_liner: 股价跟着收益走——P/E与增长率比、与历史比、与市场比，(增长率+股息率)/P/E≥1.5才吸引人，绝不买超高P/E
+  intents:
+  - 判断一只股票当前价格贵不贵
+  - 计算并解读市盈率（vs增长率/历史区间/行业/整体市场）
+  - 用收益线与股价线背离判断风险
+  - 判断买入时点（整体市场P/E水位+恐慌窗口）
+  keywords:
+  - 市盈率
+  - P/E
+  - 估值
+  - 收益增长率
+  - 收益线
+  - 背离
+  - 高估
+  - 低估
+  - 买入时机
+  - valuation
+  - price earnings ratio
+  - overvalued
+  also_read:
+  - financial-checklist-13
+  - stock-screening-checklists
+  - analyze-checklist-ch15
+  card: cards/pe-valuation.md
+  frontmatter:
+    description: '用林奇口径完成估值判断：P/E vs 收益增长率（相等合理、一半偏便宜、两倍危险）、(增长率+股息率)/P/E≥1.5、
+
+      vs 自身历史区间、vs 整体市场水位（风向标）；收益线与股价线背离信号（价远高于线→等待回归）；
+
+      两个买入窗口（系统性恐慌期/整体低P/E期）。trigger："贵不贵""现在估值什么水平""P/E 40倍能买吗""收益涨股价不涨说明什么"。
+
+      不预测大盘；周期股P/E需按周期位置反转解读。
+
+      '
+    tags:
+    - calculation
+    - valuation
+    - decision
+  source_evidence:
+  - source_id: src-main-book
+    location: 第10章 L2289-2381（10.1-10.4）；13.2 L2808-2822；17.1-17.2 L3496-3568；图6-1/10-1/10-2/10-3/18-1/18-2背离证据
+  promotion:
+    destination: promoted
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: true
+      independent_eval: true
+    notes: 贵不贵"高频独立意图；公式可复算断言；A股适配节处理整体市场P/E基准差异
+- capability_id: cap.one-up-on-wall-street.financial-checklist-13
+  revision: 1
+  status: active
+  slug: financial-checklist-13
+  title: 13项财务指标核查
+  importance: critical
+  importance_rationale: task-06，用户单元④：第13章全部小节+年报阅读法是基本面分析主干；每股净现金调价、负债结构生死判定（GCA vs 应用材料）等口径直接决定结论
+  one_liner: 年报直翻资产负债表——现金头寸、负债结构、股息记录、账面价值陷阱、隐蔽资产、现金流、存货、养老金、增长率、利润率十三项逐项过
+  intents:
+  - 从年报/财报中提取并解读13项关键财务指标
+  - 快速阅读一份年报（跳过文字直取数字）
+  - 用每股净现金与负债结构判断公司真实买价与生存能力
+  keywords:
+  - 财务指标
+  - 现金头寸
+  - 净现金
+  - 负债权益比
+  - 股息
+  - 账面价值
+  - 隐蔽资产
+  - 现金流量
+  - 存货
+  - 养老金
+  - 增长率
+  - 税后利润
+  - 年报
+  - balance sheet
+  - cash position
+  - debt to equity
+  also_read:
+  - research-info-gathering
+  - pe-valuation
+  - analyze-checklist-ch15
+  card: cards/financial-checklist-13.md
+  frontmatter:
+    description: '按第13章口径核查13项指标：产品销售占比/P/E/现金头寸（每股净现金=（现金+证券-长期负债)/股本，调低实际买价）/
+
+      负债（权益75%负债25%正常线；短期银行负债最危险、长期债券最安全）/股息（20-30年连续提高记录）/账面价值（经常失真）/
+
+      隐蔽资产/自由现金流（股价10%底线）/存货（增速超销售=危险）/养老金计划/增长率/税前利润率。
+
+      trigger："帮我看看这家公司财报""年报怎么读""这家公司现金多不多/负债危险吗"。输入财报数据输出逐项核查表。
+
+      A股适配节做科目映射与查询渠道。
+
+      '
+    tags:
+    - checklist
+    - calculation
+    - fundamentals
+  source_evidence:
+  - source_id: src-main-book
+    location: 第13章 L2798-3194（13.1-13.13，表13-1/13-2）；第12章 L2637-2790（年报阅读法，表12-1/12-2福特数据链）
+  promotion:
+    destination: promoted
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: true
+      independent_eval: true
+    notes: 看财报"独立高频；公式全部可复算（福特16.30数据链已验证）；指标表可作输出断言
+- capability_id: cap.one-up-on-wall-street.analyze-checklist-ch15
+  revision: 1
+  status: active
+  slug: analyze-checklist-ch15
+  title: 股票分析要点一览表（第15章通用+六类型专项核查）
+  importance: high
+  importance_rationale: task-08，用户单元⑤：15.1是全书唯一"通用+分类型"完整核查表，日常分析主工具；作为分析链主入口连接分类/估值/财务/独白
+  one_liner: 按类型逐项核查——先过通用要点（P/E、净现金、负债、股息、增长），再按六类型专项清单补齐
+  intents:
+  - 对一只股票做全面的基本面核查
+  - 系统化组织一次完整的个股分析
+  keywords:
+  - 股票分析
+  - 核查清单
+  - 分析要点
+  - 一览表
+  - 通用要点
+  - 类型专项
+  - stock analysis checklist
+  - due diligence
+  also_read:
+  - classify-six-types
+  - pe-valuation
+  - financial-checklist-13
+  - two-minute-story
+  card: cards/analyze-checklist-ch15.md
+  frontmatter:
+    description: '第15章"股票分析要点一览表"执行器：通用层（市盈率与增长率/机构持股占比/内部人士占比/现金与负债/股息记录/增长来源）
+
+      + 六类型专项层（缓慢增长看股息、稳定增长看P/E与催化剂、周期看存货产能价格、快速增长看扩张复制与同店、
+
+      困境反转看重整步骤与现金、隐蔽资产看资产价值）。trigger："帮我全面分析这只股票""做个尽调清单""从哪几方面看这家公司"。
+
+      输出完整核查表并标注缺口；分类未定时先调 classify-six-types。
+
+      '
+    tags:
+    - checklist
+    - framework
+    - analysis
+  source_evidence:
+  - source_id: src-main-book
+    location: 第15章 L3234-3396（15.1七小节+15.2要点）
+  promotion:
+    destination: promoted
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: true
+      independent_eval: true
+    notes: 全面分析一只股票"独立意图强；清单式输出易评测；与U07独白的触发可分性靠"清单核查vs理由陈述"区分
+- capability_id: cap.one-up-on-wall-street.dangerous-sayings
+  revision: 1
+  status: active
+  slug: dangerous-sayings
+  title: 12种危险说法识别与反驳+衍生品否定
+  importance: high
+  importance_rationale: task-10/task-15，用户单元⑥：心理纪律防线，语言信号极其明确（触发可分性最强）；衍生品否定是明确防御结论
+  one_liner: '"不会再跌了""3美元能亏多少"等12种说法是危险信号——逐条识别反驳；期权期货卖空一律不碰'
+  intents:
+  - 识别自己或他人话语中的危险投资说法
+  - 用书中论据逐条反驳
+  - 对期权期货卖空提议给出否定决策
+  keywords:
+  - 危险说法
+  - 不可能再跌
+  - 涨回来
+  - 反弹再卖
+  - 保守型股票
+  - 低价股
+  - 期权
+  - 期货
+  - 卖空
+  - dangerous sayings
+  - options
+  - short selling
+  also_read:
+  - sell-rules-by-type
+  - recheck-holdings
+  card: cards/dangerous-sayings.md
+  frontmatter:
+    description: '识别12种关于股价的最愚蠢危险说法（"已经跌这么多了不可能再跌""你总能知道什么时候跌到底""股价这么高了怎么可能再涨"
+
+      "只有3美元我能亏多少""最终会涨回来的""黎明前总是最黑暗""等反弹到10美元再卖""保守型股票不会波动大"
+
+      "等太久了不可能涨了""看我损失了多少没买""错过这只要抓住下一只""涨了就是对跌了就是错"）并逐条给出书中反驳与案例数字。
+
+      含期权期货（长期买家80%-95%亏损）与卖空（亏损无限）的否定结论。trigger：用户说出上述任何一句，或问"要不要抄底/割肉/做期权"。
+
+      '
+    tags:
+    - counter-example
+    - psychology
+    - defense
+  source_evidence:
+  - source_id: src-main-book
+    location: 第18章 L3742-3996（12条，图18-1/18-2）；第19章 L3997-4057
+  promotion:
+    destination: promoted
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: true
+      independent_eval: true
+    notes: 语言信号最明确的能力，正负例评测最容易；防止心理错误的价值独立于其他分析能力
+- capability_id: cap.one-up-on-wall-street.two-minute-story
+  revision: 1
+  status: active
+  slug: two-minute-story
+  title: 两分钟沉思独白
+  importance: high
+  importance_rationale: task-07，用户单元⑤：下单前决策收口，防"不懂就买"；La Quinta正例/Bildner's反例是全书最完整的教学对照
+  one_liner: 下单前两分钟把"故事"讲清楚——为什么买、成功条件是什么、风险在哪，讲不清就不买
+  intents:
+  - 下单前组织买入理由（类型化故事线）
+  - 检验自己是否真懂一家公司
+  keywords:
+  - 两分钟独白
+  - 买入理由
+  - 投资故事
+  - 下单之前
+  - two minute monologue
+  - investment thesis
+  also_read:
+  - classify-six-types
+  - analyze-checklist-ch15
+  - recheck-holdings
+  card: cards/two-minute-story.md
+  frontmatter:
+    description: '下单前的两分钟独白生成器：按公司类型套用故事模板（缓慢增长=股息故事、周期=存货与价格拐点故事、
+
+      快速增长=扩张复制故事、困境反转=重整成效故事、隐蔽资产=资产价值故事、稳定增长=催化剂故事），
+
+      输出"为什么感兴趣+成功条件+主要风险"三段式独白，讲不清即为不买信号。trigger："帮我组织买入理由"
+
+      "我要下单了帮我过一遍""这公司为什么值得买"。与 analyze-checklist-ch15 的区分：清单核查vs理由陈述收口。
+
+      '
+    tags:
+    - decision
+    - narrative
+    - pre-commitment
+  source_evidence:
+  - source_id: src-main-book
+    location: 第11章 L2387-2502（独白定义+六类型范例+La Quinta成功+Bildner's失败）
+  promotion:
+    destination: router
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: true
+      independent_eval: true
+    notes: 五判据通过，但因入口预算（8）与触发可分性（与U08清单强耦合，独白=清单结论的叙述化收口）列为router能力卡，经来源路由入口完整可达
+- capability_id: cap.one-up-on-wall-street.recheck-holdings
+  revision: 1
+  status: active
+  slug: recheck-holdings
+  title: 定期重新核查
+  importance: high
+  importance_rationale: task-09，用户单元⑤：持有期纪律；"价格下跌不是核查理由、新情况才是"防止情绪化操作；快速增长三阶段定位防止拿错阶段
+  one_liner: 每隔几个月重查基本面——新情况触发核查，价格波动本身不是；快速增长公司分三阶段，别在衰退期当扩张期拿
+  intents:
+  - 判断持仓是否/何时需要重新核查
+  - 系统复查一家已持有公司的基本面变化
+  - 定位快速增长型公司所处阶段
+  keywords:
+  - 重新核查
+  - 定期复查
+  - 持仓检查
+  - 三阶段
+  - 基本面变化
+  - recheck
+  - review holdings
+  also_read:
+  - two-minute-story
+  - sell-rules-by-type
+  - dangerous-sayings
+  card: cards/recheck-holdings.md
+  frontmatter:
+    description: '持有期重新核查程序：触发器（每几个月一次+新情况驱动：季报、收益变化、扩张进度、行业事件、管理层变动）→
+
+      核查内容（原买入故事是否仍成立：收益、增长来源、负债、竞争）→ 行动（故事成立持有/加强则追加/破坏则转卖出判据）。
+
+      快速增长公司三阶段（扩张期/饱和期/衰退期）。trigger："持仓多久复查一次""出了XX消息要不要重新评估"
+
+      "这公司基本面变了吗"。价格下跌本身不触发卖出，触发的是故事破坏。
+
+      '
+    tags:
+    - procedure
+    - discipline
+    - monitoring
+  source_evidence:
+  - source_id: src-main-book
+    location: 第14章 L3194-3234；17.2不要过早卖出 L3568-3590
+  promotion:
+    destination: router
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: true
+      independent_eval: true
+    notes: 五判据通过；内容较薄（核心3条规则）且与U02卖出/U08清单相邻，触发可分性中等，列router经来源路由入口可达
+- capability_id: cap.one-up-on-wall-street.portfolio-rules
+  revision: 1
+  status: active
+  slug: portfolio-rules
+  title: 组合构建与持有纪律
+  importance: high
+  importance_rationale: task-11，用户单元⑦：持股数量、类型搭配、换股不换现金、反对止损指令、"拔鲜花浇野草"之戒是组合层核心规则
+  one_liner: 3-10只、类型搭配、只换股不闲置——卖出鲜花抱住野草是最大错误；业余者不设止损指令
+  intents:
+  - 决定持仓数量与类型搭配
+  - 判断一笔新买入对组合的影响
+  - 处理"卖什么换什么"的换仓决策
+  keywords:
+  - 投资组合
+  - 持股数量
+  - 分散
+  - 换股
+  - 仓位
+  - 止损指令
+  - 拔掉鲜花浇灌野草
+  - portfolio
+  - position sizing
+  also_read:
+  - sell-rules-by-type
+  - self-test-eligibility
+  card: cards/portfolio-rules.md
+  frontmatter:
+    description: '组合层规则：数量3-10只（能力圈内能跟踪的上限）、类型搭配示例（稳定增长打底+快速增长进攻+困境反转弹性）、
+
+      期望回报12-15%复利口径、换股不换现金（卖出需有更好标的）、跌25%基本面不变可追加、不用止损指令
+
+      （触发的是基本面核查而非自动卖出）。trigger："持仓几只合适""仓位怎么配""要不要止损""卖了的钱现在买什么"。
+
+      不做资产配置（股债比例）与大盘择时。
+
+      '
+    tags:
+    - principle
+    - portfolio
+    - discipline
+  source_evidence:
+  - source_id: src-main-book
+    location: 第16章 L3404-3496（16.1-16.3）
+  promotion:
+    destination: router
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: true
+      independent_eval: true
+    notes: 五判据通过；预算排序低于7个晋级入口（预期调用频率低于个股分析类），列router经来源路由入口可达
+- capability_id: cap.one-up-on-wall-street.self-test-eligibility
+  revision: 1
+  status: active
+  slug: self-test-eligibility
+  title: 入市自我测试与业余优势定位
+  importance: medium
+  importance_rationale: task-12，用户单元⑦：入市三问是前置门槛（风险控制第一课）；业余优势定位决定信息从哪找；单次使用为主故复用性中等
+  one_liner: 入市先过三问——有房吗、两三年要用的钱吗、有耐心与认错的素质吗；业余优势在身边，不在消息
+  intents:
+  - 判断当前是否适合入市/加仓
+  - 定位自己的信息优势来源（工作/消费现场）
+  keywords:
+  - 入市准备
+  - 自我测试
+  - 三问
+  - 个人素质
+  - 业余投资者优势
+  - 专业投资者劣势
+  - 华尔街滞后性
+  - beginner
+  - eligibility
+  also_read:
+  - portfolio-rules
+  card: cards/self-test-eligibility.md
+  frontmatter:
+    description: '入市前三问检查（①先解决住房等大额支出②两三年内要用的钱不入市，只投承受得起的损失③耐心/自立/常识/忍耐/
+
+      独立研究/认错/恐慌中冷静等素质自评）+ 业余优势定位（身边工作与消费现场领先华尔街6-12个月；机构受滞后性与
+
+      规模限制被迫晚买）。trigger："我现在适合炒股吗""拿多少钱入市合适""散户有什么优势"。未通过三问时建议停止，
+
+      后续分析能力不启动。
+
+      '
+    tags:
+    - checklist
+    - eligibility
+    - meta
+  source_evidence:
+  - source_id: src-main-book
+    location: 第4章 L580-643；第2章 L287-441；第6章 L772-992；导论
+  promotion:
+    destination: router
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: false
+      independent_eval: true
+    notes: 独立复用弱（入市前单次使用）；列router经来源路由入口可达，作为流水线第一道门槛
+- capability_id: cap.one-up-on-wall-street.research-info-gathering
+  revision: 1
+  status: active
+  slug: research-info-gathering
+  title: 信息获取与调研程序
+  importance: medium
+  importance_rationale: task-06/08辅助：第12章调研程序是分析链的信息供给层；原书渠道多为1980年代美国特有，A股适配节为本能力的主要价值所在
+  one_liner: 调研只认事实和数据——年报数字、IR问答、实地观察三个层级，形容词一律不听
+  intents:
+  - 系统获取一家公司的真实经营信息
+  - 向上市公司提问（问题清单）
+  - 甄别投资者关系话术（只取数据）
+  keywords:
+  - 调研
+  - 投资者关系
+  - 年报
+  - 实地调查
+  - 电话
+  - 事实和数据
+  - research
+  - IR
+  - due diligence process
+  also_read:
+  - financial-checklist-13
+  - analyze-checklist-ch15
+  card: cards/research-info-gathering.md
+  frontmatter:
+    description: '调研程序：公开数据层（年报资产负债表/10年数据概要）→ 提问层（"华尔街对贵公司明年收益的预测是多少"
+
+      "今年有利/不利因素各是什么"等事实型问题清单）→ 验证层（实地/门店/产品体验）。核心纪律：不理会形容词只取事实数据；
+
+      保守行业说得悲观=可能很好，热门行业说得乐观=警惕。trigger："怎么调研一家公司""给上市公司打电话问什么"
+
+      "投资者关系的话能信吗"。A股适配节全面替换渠道（互动易/调研纪要/巨潮资讯等）。
+
+      '
+    tags:
+    - procedure
+    - research
+    - information
+  source_evidence:
+  - source_id: src-main-book
+    location: 第12章 L2479-2790（12.1-12.7）
+  promotion:
+    destination: router
+    gate:
+      independent_intent: true
+      independent_contract: true
+      independent_run: true
+      independent_reuse: true
+      independent_eval: false
+    notes: 独立评测较弱（渠道A股化后输出形态变化大）；列router经来源路由入口可达；A股适配节是本卡主要增量

@@ -1,57 +1,57 @@
 {
   "generated_by": "cangjie-tools v2.5.0",
-  "bundle_id": "bundle.peter-lynch-invest-skill",
+  "bundle_id": "bundle.one-up-on-wall-street",
   "router_entrypoint": "peter-lynch-invest-skill-router",
   "entrypoint_count": 8,
   "capability_count": 12,
   "destinations": {
-    "cap.peter-lynch-invest-skill.classify-six-types-skill": {
-      "promoted_to": "classify-six-types-skill",
-      "router_view": "peter-lynch-invest-skill-router/references/capabilities/classify-six-types-skill.md"
+    "cap.one-up-on-wall-street.classify-six-types": {
+      "promoted_to": "classify-six-types",
+      "router_view": "peter-lynch-invest-skill-router/references/capabilities/classify-six-types.md"
     },
-    "cap.peter-lynch-invest-skill.sell-rules-by-type-skill": {
-      "promoted_to": "sell-rules-by-type-skill",
-      "router_view": "peter-lynch-invest-skill-router/references/capabilities/sell-rules-by-type-skill.md"
+    "cap.one-up-on-wall-street.sell-rules-by-type": {
+      "promoted_to": "sell-rules-by-type",
+      "router_view": "peter-lynch-invest-skill-router/references/capabilities/sell-rules-by-type.md"
     },
-    "cap.peter-lynch-invest-skill.stock-screening-checklists-skill": {
-      "promoted_to": "stock-screening-checklists-skill",
-      "router_view": "peter-lynch-invest-skill-router/references/capabilities/stock-screening-checklists-skill.md"
+    "cap.one-up-on-wall-street.stock-screening-checklists": {
+      "promoted_to": "stock-screening-checklists",
+      "router_view": "peter-lynch-invest-skill-router/references/capabilities/stock-screening-checklists.md"
     },
-    "cap.peter-lynch-invest-skill.pe-valuation-skill": {
-      "promoted_to": "pe-valuation-skill",
-      "router_view": "peter-lynch-invest-skill-router/references/capabilities/pe-valuation-skill.md"
+    "cap.one-up-on-wall-street.pe-valuation": {
+      "promoted_to": "pe-valuation",
+      "router_view": "peter-lynch-invest-skill-router/references/capabilities/pe-valuation.md"
     },
-    "cap.peter-lynch-invest-skill.financial-checklist-13-skill": {
-      "promoted_to": "financial-checklist-13-skill",
-      "router_view": "peter-lynch-invest-skill-router/references/capabilities/financial-checklist-13-skill.md"
+    "cap.one-up-on-wall-street.financial-checklist-13": {
+      "promoted_to": "financial-checklist-13",
+      "router_view": "peter-lynch-invest-skill-router/references/capabilities/financial-checklist-13.md"
     },
-    "cap.peter-lynch-invest-skill.analyze-checklist-ch15-skill": {
-      "promoted_to": "analyze-checklist-ch15-skill",
-      "router_view": "peter-lynch-invest-skill-router/references/capabilities/analyze-checklist-ch15-skill.md"
+    "cap.one-up-on-wall-street.analyze-checklist-ch15": {
+      "promoted_to": "analyze-checklist-ch15",
+      "router_view": "peter-lynch-invest-skill-router/references/capabilities/analyze-checklist-ch15.md"
     },
-    "cap.peter-lynch-invest-skill.dangerous-sayings-skill": {
-      "promoted_to": "dangerous-sayings-skill",
-      "router_view": "peter-lynch-invest-skill-router/references/capabilities/dangerous-sayings-skill.md"
+    "cap.one-up-on-wall-street.dangerous-sayings": {
+      "promoted_to": "dangerous-sayings",
+      "router_view": "peter-lynch-invest-skill-router/references/capabilities/dangerous-sayings.md"
     },
-    "cap.peter-lynch-invest-skill.two-minute-story": {
+    "cap.one-up-on-wall-street.two-minute-story": {
       "served_by": "peter-lynch-invest-skill-router",
-      "card": "peter-lynch-invest-skill-router/references/capabilities/two-minute-story-skill.md"
+      "card": "peter-lynch-invest-skill-router/references/capabilities/two-minute-story.md"
     },
-    "cap.peter-lynch-invest-skill.recheck-holdings": {
+    "cap.one-up-on-wall-street.recheck-holdings": {
       "served_by": "peter-lynch-invest-skill-router",
-      "card": "peter-lynch-invest-skill-router/references/capabilities/recheck-holdings-skill.md"
+      "card": "peter-lynch-invest-skill-router/references/capabilities/recheck-holdings.md"
     },
-    "cap.peter-lynch-invest-skill.portfolio-rules": {
+    "cap.one-up-on-wall-street.portfolio-rules": {
       "served_by": "peter-lynch-invest-skill-router",
-      "card": "peter-lynch-invest-skill-router/references/capabilities/portfolio-rules-skill.md"
+      "card": "peter-lynch-invest-skill-router/references/capabilities/portfolio-rules.md"
     },
-    "cap.peter-lynch-invest-skill.self-test-eligibility": {
+    "cap.one-up-on-wall-street.self-test-eligibility": {
       "served_by": "peter-lynch-invest-skill-router",
-      "card": "peter-lynch-invest-skill-router/references/capabilities/self-test-eligibility-skill.md"
+      "card": "peter-lynch-invest-skill-router/references/capabilities/self-test-eligibility.md"
     },
-    "cap.peter-lynch-invest-skill.research-info-gathering": {
+    "cap.one-up-on-wall-street.research-info-gathering": {
       "served_by": "peter-lynch-invest-skill-router",
-      "card": "peter-lynch-invest-skill-router/references/capabilities/research-info-gathering-skill.md"
+      "card": "peter-lynch-invest-skill-router/references/capabilities/research-info-gathering.md"
     }
   }
 }

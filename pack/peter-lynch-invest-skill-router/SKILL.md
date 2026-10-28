@@ -8,7 +8,7 @@ description: |
 metadata:
   cangjie.generated-by: cangjie-tools v2.5.0
   cangjie.variant: router
-  cangjie.bundle-id: bundle.peter-lynch-invest-skill
+  cangjie.bundle-id: bundle.one-up-on-wall-street
   cangjie.capability-count: 12
   cangjie.entrypoint-count: 8
 ---
@@ -36,18 +36,18 @@ metadata:
 
 | 用户意图 | 先读 | 补读/备注 |
 |---|---|---|
-| 判断一家公司属于六类中的哪一类；判断热门产品对公司的意义（产品净利润占比测算）；评估一家大公司股票的上涨空间上限 | references/capabilities/classify-six-types-skill.md | 已晋级为独立 Skill `classify-six-types-skill`（已安装时优先直接使用；本卡仅作原文与背景补充） |
-| 判断一只持仓股票现在该不该卖；区分"基本面恶化必须卖"与"价格波动不用卖"；识别煽动效应与过早卖出陷阱 | references/capabilities/sell-rules-by-type-skill.md | 已晋级为独立 Skill `sell-rules-by-type-skill`（已安装时优先直接使用；本卡仅作原文与背景补充） |
-| 用13条理想特征为候选公司打分；用负面清单排除候选（热门股/下一个/多元恶化/小道消息/大客户依赖/花哨名字）；判断一条股票线索值不值得继续研究 | references/capabilities/stock-screening-checklists-skill.md | 已晋级为独立 Skill `stock-screening-checklists-skill`（已安装时优先直接使用；本卡仅作原文与背景补充） |
-| 判断一只股票当前价格贵不贵；计算并解读市盈率（vs增长率/历史区间/行业/整体市场）；用收益线与股价线背离判断风险；判断买入时点（整体市场P/E水位+恐慌窗口） | references/capabilities/pe-valuation-skill.md | 已晋级为独立 Skill `pe-valuation-skill`（已安装时优先直接使用；本卡仅作原文与背景补充） |
-| 从年报/财报中提取并解读13项关键财务指标；快速阅读一份年报（跳过文字直取数字）；用每股净现金与负债结构判断公司真实买价与生存能力 | references/capabilities/financial-checklist-13-skill.md | 已晋级为独立 Skill `financial-checklist-13-skill`（已安装时优先直接使用；本卡仅作原文与背景补充） |
-| 对一只股票做全面的基本面核查；系统化组织一次完整的个股分析 | references/capabilities/analyze-checklist-ch15-skill.md | 已晋级为独立 Skill `analyze-checklist-ch15-skill`（已安装时优先直接使用；本卡仅作原文与背景补充） |
-| 识别自己或他人话语中的危险投资说法；用书中论据逐条反驳；对期权期货卖空提议给出否定决策 | references/capabilities/dangerous-sayings-skill.md | 已晋级为独立 Skill `dangerous-sayings-skill`（已安装时优先直接使用；本卡仅作原文与背景补充） |
-| 下单前组织买入理由（类型化故事线）；检验自己是否真懂一家公司 | references/capabilities/two-minute-story-skill.md | references/capabilities/classify-six-types-skill.md、references/capabilities/analyze-checklist-ch15-skill.md、references/capabilities/recheck-holdings-skill.md |
-| 判断持仓是否/何时需要重新核查；系统复查一家已持有公司的基本面变化；定位快速增长型公司所处阶段 | references/capabilities/recheck-holdings-skill.md | references/capabilities/two-minute-story-skill.md、references/capabilities/sell-rules-by-type-skill.md、references/capabilities/dangerous-sayings-skill.md |
-| 决定持仓数量与类型搭配；判断一笔新买入对组合的影响；处理"卖什么换什么"的换仓决策 | references/capabilities/portfolio-rules-skill.md | references/capabilities/sell-rules-by-type-skill.md、references/capabilities/self-test-eligibility-skill.md |
-| 判断当前是否适合入市/加仓；定位自己的信息优势来源（工作/消费现场） | references/capabilities/self-test-eligibility-skill.md | references/capabilities/portfolio-rules-skill.md |
-| 系统获取一家公司的真实经营信息；向上市公司提问（问题清单）；甄别投资者关系话术（只取数据） | references/capabilities/research-info-gathering-skill.md | references/capabilities/financial-checklist-13-skill.md、references/capabilities/analyze-checklist-ch15-skill.md |
+| 判断一家公司属于六类中的哪一类；判断热门产品对公司的意义（产品净利润占比测算）；评估一家大公司股票的上涨空间上限 | references/capabilities/classify-six-types.md | 已晋级为独立 Skill `classify-six-types`（已安装时优先直接使用；本卡仅作原文与背景补充） |
+| 判断一只持仓股票现在该不该卖；区分"基本面恶化必须卖"与"价格波动不用卖"；识别煽动效应与过早卖出陷阱 | references/capabilities/sell-rules-by-type.md | 已晋级为独立 Skill `sell-rules-by-type`（已安装时优先直接使用；本卡仅作原文与背景补充） |
+| 用13条理想特征为候选公司打分；用负面清单排除候选（热门股/下一个/多元恶化/小道消息/大客户依赖/花哨名字）；判断一条股票线索值不值得继续研究 | references/capabilities/stock-screening-checklists.md | 已晋级为独立 Skill `stock-screening-checklists`（已安装时优先直接使用；本卡仅作原文与背景补充） |
+| 判断一只股票当前价格贵不贵；计算并解读市盈率（vs增长率/历史区间/行业/整体市场）；用收益线与股价线背离判断风险；判断买入时点（整体市场P/E水位+恐慌窗口） | references/capabilities/pe-valuation.md | 已晋级为独立 Skill `pe-valuation`（已安装时优先直接使用；本卡仅作原文与背景补充） |
+| 从年报/财报中提取并解读13项关键财务指标；快速阅读一份年报（跳过文字直取数字）；用每股净现金与负债结构判断公司真实买价与生存能力 | references/capabilities/financial-checklist-13.md | 已晋级为独立 Skill `financial-checklist-13`（已安装时优先直接使用；本卡仅作原文与背景补充） |
+| 对一只股票做全面的基本面核查；系统化组织一次完整的个股分析 | references/capabilities/analyze-checklist-ch15.md | 已晋级为独立 Skill `analyze-checklist-ch15`（已安装时优先直接使用；本卡仅作原文与背景补充） |
+| 识别自己或他人话语中的危险投资说法；用书中论据逐条反驳；对期权期货卖空提议给出否定决策 | references/capabilities/dangerous-sayings.md | 已晋级为独立 Skill `dangerous-sayings`（已安装时优先直接使用；本卡仅作原文与背景补充） |
+| 下单前组织买入理由（类型化故事线）；检验自己是否真懂一家公司 | references/capabilities/two-minute-story.md | references/capabilities/classify-six-types.md、references/capabilities/analyze-checklist-ch15.md、references/capabilities/recheck-holdings.md |
+| 判断持仓是否/何时需要重新核查；系统复查一家已持有公司的基本面变化；定位快速增长型公司所处阶段 | references/capabilities/recheck-holdings.md | references/capabilities/two-minute-story.md、references/capabilities/sell-rules-by-type.md、references/capabilities/dangerous-sayings.md |
+| 决定持仓数量与类型搭配；判断一笔新买入对组合的影响；处理"卖什么换什么"的换仓决策 | references/capabilities/portfolio-rules.md | references/capabilities/sell-rules-by-type.md、references/capabilities/self-test-eligibility.md |
+| 判断当前是否适合入市/加仓；定位自己的信息优势来源（工作/消费现场） | references/capabilities/self-test-eligibility.md | references/capabilities/portfolio-rules.md |
+| 系统获取一家公司的真实经营信息；向上市公司提问（问题清单）；甄别投资者关系话术（只取数据） | references/capabilities/research-info-gathering.md | references/capabilities/financial-checklist-13.md、references/capabilities/analyze-checklist-ch15.md |
 
 **非能力类查询**：
 - 书名/作者/章节/整书概览 → references/overview.md
