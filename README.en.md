@@ -1,4 +1,4 @@
-<h1 align="center">One Up on Wall Street Skill</h1>
+<h1 align="center">Peter Lynch Invest Skill</h1>
 
 <p align="center"><a href="README.md">中文</a> | English</p>
 
