@@ -1,0 +1,57 @@
+{
+  "generated_by": "cangjie-tools v2.5.0",
+  "bundle_id": "bundle.peter-lynch-invest-skill",
+  "router_entrypoint": "peter-lynch-invest-skill-router",
+  "entrypoint_count": 8,
+  "capability_count": 12,
+  "destinations": {
+    "cap.peter-lynch-invest-skill.classify-six-types-skill": {
+      "promoted_to": "classify-six-types-skill",
+      "router_view": "peter-lynch-invest-skill-router/references/capabilities/classify-six-types-skill.md"
+    },
+    "cap.peter-lynch-invest-skill.sell-rules-by-type-skill": {
+      "promoted_to": "sell-rules-by-type-skill",
+      "router_view": "peter-lynch-invest-skill-router/references/capabilities/sell-rules-by-type-skill.md"
+    },
+    "cap.peter-lynch-invest-skill.stock-screening-checklists-skill": {
+      "promoted_to": "stock-screening-checklists-skill",
+      "router_view": "peter-lynch-invest-skill-router/references/capabilities/stock-screening-checklists-skill.md"
+    },
+    "cap.peter-lynch-invest-skill.pe-valuation-skill": {
+      "promoted_to": "pe-valuation-skill",
+      "router_view": "peter-lynch-invest-skill-router/references/capabilities/pe-valuation-skill.md"
+    },
+    "cap.peter-lynch-invest-skill.financial-checklist-13-skill": {
+      "promoted_to": "financial-checklist-13-skill",
+      "router_view": "peter-lynch-invest-skill-router/references/capabilities/financial-checklist-13-skill.md"
+    },
+    "cap.peter-lynch-invest-skill.analyze-checklist-ch15-skill": {
+      "promoted_to": "analyze-checklist-ch15-skill",
+      "router_view": "peter-lynch-invest-skill-router/references/capabilities/analyze-checklist-ch15-skill.md"
+    },
+    "cap.peter-lynch-invest-skill.dangerous-sayings-skill": {
+      "promoted_to": "dangerous-sayings-skill",
+      "router_view": "peter-lynch-invest-skill-router/references/capabilities/dangerous-sayings-skill.md"
+    },
+    "cap.peter-lynch-invest-skill.two-minute-story": {
+      "served_by": "peter-lynch-invest-skill-router",
+      "card": "peter-lynch-invest-skill-router/references/capabilities/two-minute-story-skill.md"
+    },
+    "cap.peter-lynch-invest-skill.recheck-holdings": {
+      "served_by": "peter-lynch-invest-skill-router",
+      "card": "peter-lynch-invest-skill-router/references/capabilities/recheck-holdings-skill.md"
+    },
+    "cap.peter-lynch-invest-skill.portfolio-rules": {
+      "served_by": "peter-lynch-invest-skill-router",
+      "card": "peter-lynch-invest-skill-router/references/capabilities/portfolio-rules-skill.md"
+    },
+    "cap.peter-lynch-invest-skill.self-test-eligibility": {
+      "served_by": "peter-lynch-invest-skill-router",
+      "card": "peter-lynch-invest-skill-router/references/capabilities/self-test-eligibility-skill.md"
+    },
+    "cap.peter-lynch-invest-skill.research-info-gathering": {
+      "served_by": "peter-lynch-invest-skill-router",
+      "card": "peter-lynch-invest-skill-router/references/capabilities/research-info-gathering-skill.md"
+    }
+  }
+}
