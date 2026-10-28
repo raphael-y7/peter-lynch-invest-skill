@@ -208,10 +208,8 @@ Ask: "This stock is up 40% — should I sell?" If the agent first asks which of 
 
 ## Sources
 
-- *One Up on Wall Street* by Peter Lynch and John Rothchild, translated by Liu Jianwei and Xu Xiaojie, China Machine Press, 2010 (original 1989)
+- *One Up on Wall Street* by Peter Lynch and John Rothchild
 - Distilled from the whole book into 12 capability cards
-- The book was written in the United States in 1988–89: every case comes from 1970s–80s US companies and not one is an A-share case; paper annual reports and phone calls were the main information channels, and the "8× overall market P/E" judgement belongs to a high-interest-rate era. This skill pack prioritizes A-share scenarios, and the "A-share adaptation" section of every card (compiler-supplied, not from the book) replaces the data sources, accounting conventions and institutional premises one by one
-- Every quantitative threshold (P/E benchmarks, growth bands, position counts, gain bands) is an experience-based rule in the book, useful only as a starting point and requiring recalibration against A-share data
 
 ## Notice
 
