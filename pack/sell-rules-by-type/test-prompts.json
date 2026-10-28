@@ -1,73 +1,62 @@
 {
   "skill": "sell-rules-by-type",
-  "version": "0.1.0",
-  "source_book": "彼得·林奇的成功投资（One Up on Wall Street） — 彼得·林奇、约翰·罗瑟查尔德",
-  "darwin_compatible": true,
+  "version": "1.0.0",
   "test_cases": [
     {
-      "id": "sell-st-01",
+      "id": "should-trigger-01",
       "type": "should_trigger",
-      "prompt": "海天味业从我买入涨了60%了，要不要落袋为安",
-      "expected_behavior": "应激活 sell-rules-by-type，按其 E 段完成「分类型卖出判据」相关任务并给出结构化结论。判定依据：稳定增长型涨幅兑现判据；核心是按类型套判据而非看浮盈",
-      "notes": "稳定增长型涨幅兑现判据；核心是按类型套判据而非看浮盈"
+      "prompt": "这只快速增长股我拿了两年涨了一倍，但最近两个季度同店销售增速从12%掉到5%，该不该卖？",
+      "expected_behavior": "触发卖出判据：按快速增长型判据核对（同店销售降3个百分点、扩张失速、P/E与增长率匹配度），输出卖出/持有/转复查三态+触发判据出处；涨幅倍数本身不作为卖出理由",
+      "notes": "正面：同店销售下滑是17.4.4明文主判据"
     },
     {
-      "id": "sell-st-02",
+      "id": "should-trigger-02",
       "type": "should_trigger",
-      "prompt": "我那只周期股现在市盈率变得特别低，要不要先跑",
-      "expected_behavior": "应激活 sell-rules-by-type，按其 E 段完成「分类型卖出判据」相关任务并给出结构化结论。判定依据：周期型低P/E预警信号；预期套用周期型卖出清单",
-      "notes": "周期型低P/E预警信号；预期套用周期型卖出清单"
+      "prompt": "周期股从底部涨了60%，现在P/E只有8倍，是不是还能拿？",
+      "expected_behavior": "触发卖出判据：周期型按反转解读——低P/E处利润高位恰是警惕区，核对存货、产能、商品价格信号后裁决",
+      "notes": "正面：周期股低P/E陷阱，是卖出卡的核心纪律之一"
     },
     {
-      "id": "sell-st-03",
+      "id": "should-trigger-03",
       "type": "should_trigger",
-      "prompt": "手里的连锁餐饮股同店销售连降三个季度，该卖了吗",
-      "expected_behavior": "应激活 sell-rules-by-type，按其 E 段完成「分类型卖出判据」相关任务并给出结构化结论。判定依据：快速增长型同店失速信号（同店降3%口径）；基本面恶化的卖出判据",
-      "notes": "快速增长型同店失速信号（同店降3%口径）；基本面恶化的卖出判据"
+      "prompt": "缓慢增长的水电股已经涨了35%，股息还是那几个点，要不要落袋？",
+      "expected_behavior": "触发卖出判据：缓慢增长型涨30%-50%即兑现线，核对股息是否停滞/削减后给出结论",
+      "notes": "正面：缓慢增长型30%-50%兑现线可直接套用"
     },
     {
-      "id": "sell-st-04",
+      "id": "should-trigger-04",
       "type": "should_trigger",
-      "prompt": "Up 80% on this A-share since April—should I take profits now?",
-      "expected_behavior": "应激活 sell-rules-by-type，按其 E 段完成「分类型卖出判据」相关任务并给出结构化结论。判定依据：英文变体：涨了要不要落袋",
-      "notes": "英文变体：涨了要不要落袋"
+      "prompt": "这只票跌了25%，群里都在喊割肉，我该不该割？",
+      "expected_behavior": "触发卖出判据：价格下跌本身不构成卖出理由，先确认类型与买入理由是否破坏，把他人观点/跌幅列为伪理由排除，输出三态",
+      "notes": "正面：考的是剔除价格锚与群体情绪，而非跟随跌幅"
     },
     {
-      "id": "sell-info-01",
+      "id": "should-not-trigger-01",
       "type": "should_not_trigger",
-      "prompt": "A股卖出股票的手续费和印花税是怎么收的",
-      "expected_behavior": "不应激活任何能力：纯信息查询。判定依据：纯信息查询诱饵（交易规则），与卖出判据无关",
-      "notes": "纯信息查询诱饵（交易规则），与卖出判据无关"
+      "prompt": "帮我看看这只票的财报，账上现金和负债到底怎么样？",
+      "expected_behavior": "不应触发本卡：财务健康核查应转 financial-checklist-13（现金头寸、负债结构、13项指标）",
+      "notes": "诱饵：同书兄弟能力——查健康不等于裁决卖出"
     },
     {
-      "id": "sell-sib-01",
+      "id": "should-not-trigger-02",
       "type": "should_not_trigger",
-      "prompt": "我都亏30%了不慌，股票跌下去总会涨回来的",
-      "expected_behavior": "不应激活本 skill，应激活 dangerous-sayings。判定依据：兄弟能力诱饵：『最终会涨回来的』是12种危险说法之一，应触发说法识别反驳而非卖出判据",
-      "notes": "跨 skill 混淆诱饵：兄弟能力诱饵：『最终会涨回来的』是12种危险说法之一，应触发说法识别反驳而非卖出判据"
+      "prompt": "我手上三只票，想再加一只，仓位怎么搭配比较稳？",
+      "expected_behavior": "不应触发本卡：组合层数量与类型搭配应转 portfolio-rules",
+      "notes": "诱饵：组合纪律 vs 单票卖出，层级不同"
     },
     {
-      "id": "sell-sib-02",
-      "type": "should_not_trigger",
-      "prompt": "持仓的股票平时多久要重新检查一次基本面",
-      "expected_behavior": "不应激活本 skill，应激活 one-up-on-wall-street-router。判定依据：定期复查（recheck-holdings，router能力）场景：问的是复查节奏不是卖不卖",
-      "notes": "跨 skill 混淆诱饵：定期复查（recheck-holdings，router能力）场景：问的是复查节奏不是卖不卖"
-    },
-    {
-      "id": "sell-edge-01",
+      "id": "edge-01",
       "type": "edge_case",
-      "prompt": "要不要给我持仓设个跌10%自动卖出的止损单",
-      "expected_behavior": "边界处理：可澄清需求、转路由或谨慎不触发，但须说明理由。判定依据：止损指令设置。书中口径：不用止损指令、价格下跌本身不是卖出理由。预期倾向不触发卖出判据，应回『触发的是基本面核查而非自动卖出』并导向组合纪律/复查",
-      "notes": "边界：止损指令设置。书中口径：不用止损指令、价格下跌本身不是卖出理由。预期倾向不触发卖出判据，应回『触发的是基本面核查而非自动卖出』并导向组合纪律/复查"
+      "prompt": "这只票我忘了当初为什么买，现在涨了20%，要不要卖掉算了？",
+      "expected_behavior": "边界处理：命中判停点②（买入理由不可重建），按故事不可考处理——先转 recheck-holdings 从零建立理由，不因说不出理由直接建议卖出，也不默认持有",
+      "notes": "边界：缺买入理由，不能套判据表硬判"
     },
     {
-      "id": "sell-edge-02",
+      "id": "edge-02",
       "type": "edge_case",
-      "prompt": "现在大盘这个位置，要不要把仓位全部清了躲一躲",
-      "expected_behavior": "边界处理：可澄清需求、转路由或谨慎不触发，但须说明理由。判定依据：大盘择时意图。个股卖出判据不处理大盘预测（书中明确否定）。预期倾向不触发，声明超出范围",
-      "notes": "边界：大盘择时意图。个股卖出判据不处理大盘预测（书中明确否定）。预期倾向不触发，声明超出范围"
+      "prompt": "反正等它反弹到成本价18块我就卖，这样总没错吧？",
+      "expected_behavior": "边界处理：先由 dangerous-sayings 识别说法⑦（以成本价为锚），反驳后若不敢越跌越买，再回本卡按类型判据执行卖出判定",
+      "notes": "边界：话术识别在前、行动判据在后，跨卡衔接"
     }
-  ],
-  "minimum_pass_rate": 0.8,
-  "notes": "由 .cangjie/evals/trigger-sell-rules-by-type.json 机械转换；完整评测与基线见 evals/test-results.md 与 evals/output-run/。至少3条should_trigger+2条should_not_trigger(含1条同书兄弟诱饵)+1条edge_case；全部should_not_trigger必须通过(容错0)。"
+  ]
 }

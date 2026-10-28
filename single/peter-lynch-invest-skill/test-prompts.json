@@ -1,80 +1,76 @@
 {
   "skill": "peter-lynch-invest-skill",
-  "version": "0.1.0",
-  "source_book": "彼得·林奇的成功投资（One Up on Wall Street） — 彼得·林奇、约翰·罗瑟查尔德",
-  "darwin_compatible": true,
+  "version": "1.0.0",
   "test_cases": [
     {
-      "id": "cls-st-01",
+      "id": "should-trigger-01",
       "type": "should_trigger",
-      "prompt": "帮我看看长江电力这种水电股属于哪种类型的公司",
-      "expected_behavior": "应激活 peter-lynch-invest-skill，按其 E 段完成「六类公司分类判定」相关任务并给出结构化结论。判定依据：单公司归型意图，无买卖诉求；应输出类型判定+依据+对应期望，不做估值",
-      "notes": "单公司归型意图，无买卖诉求；应输出类型判定+依据+对应期望，不做估值"
+      "prompt": "帮我判断这只票属于六类里的哪一类，给个依据。",
+      "expected_behavior": "触发单入口：按路由表加载 references/capabilities/classify-six-types.md，输出类型+≥2条判定依据+期望收益与下一步入口",
+      "notes": "正面：分类意图，单入口内部路由"
     },
     {
-      "id": "sell-st-01",
+      "id": "should-trigger-02",
       "type": "should_trigger",
-      "prompt": "海天味业从我买入涨了60%了，要不要落袋为安",
-      "expected_behavior": "应激活 peter-lynch-invest-skill，按其 E 段完成「分类型卖出判据」相关任务并给出结构化结论。判定依据：稳定增长型涨幅兑现判据；核心是按类型套判据而非看浮盈",
-      "notes": "稳定增长型涨幅兑现判据；核心是按类型套判据而非看浮盈"
+      "prompt": "这票涨了50%了，要不要落袋？",
+      "expected_behavior": "触发单入口：加载 sell-rules-by-type，先确认类型再套判据，价格涨幅本身不作为卖出理由",
+      "notes": "正面：卖出意图"
     },
     {
-      "id": "scr-st-01",
+      "id": "should-trigger-03",
       "type": "should_trigger",
-      "prompt": "朋友推荐了一只元宇宙概念股，帮我把关值不值得研究",
-      "expected_behavior": "应激活 peter-lynch-invest-skill，按其 E 段完成「双向筛选清单（13条选股准则+避而不买清单）」相关任务并给出结构化结论。判定依据：线索把关意图；应输出正向命中+负向红旗+是否进入下一步研究，不做估值",
-      "notes": "线索把关意图；应输出正向命中+负向红旗+是否进入下一步研究，不做估值"
+      "prompt": "P/E 35倍配20%的增长，这估值贵吗？",
+      "expected_behavior": "触发单入口：加载 pe-valuation，按P/E vs 增长率与含股息得分口径判定",
+      "notes": "正面：估值意图"
     },
     {
-      "id": "pe-st-01",
+      "id": "should-trigger-04",
       "type": "should_trigger",
-      "prompt": "现在A股整体市盈率在什么水位，这时候进场买股票贵不贵",
-      "expected_behavior": "应激活 peter-lynch-invest-skill，按其 E 段完成「市盈率与收益估值口径」相关任务并给出结构化结论。判定依据：整体市场P/E水位判断（买入窗口之一）；注意是水位判断不是大盘走势预测",
-      "notes": "整体市场P/E水位判断（买入窗口之一）；注意是水位判断不是大盘走势预测"
+      "prompt": "帮我看看它年报里现金和负债的情况。",
+      "expected_behavior": "触发单入口：加载 financial-checklist-13，按现金头寸→每股净现金→负债结构顺序核查",
+      "notes": "正面：财报核查意图"
     },
     {
-      "id": "fin-st-01",
+      "id": "should-trigger-05",
       "type": "should_trigger",
-      "prompt": "帮我看看这家公司刚发的年报，现金和负债这块健康吗",
-      "expected_behavior": "应激活 peter-lynch-invest-skill，按其 E 段完成「13项财务指标核查」相关任务并给出结构化结论。判定依据：年报核查入口意图；应跳过文字直取数字，逐项输出核查表",
-      "notes": "年报核查入口意图；应跳过文字直取数字，逐项输出核查表"
+      "prompt": "这只票是不是雷？有没有什么坑？",
+      "expected_behavior": "触发单入口：加载 stock-screening-checklists，先扫负向6类红旗再跑正向13条",
+      "notes": "正面：筛选意图"
     },
     {
-      "id": "dgr-st-01",
+      "id": "should-trigger-06",
       "type": "should_trigger",
-      "prompt": "都亏40%了，这票不可能再跌了，我想补仓摊成本",
-      "expected_behavior": "应激活 peter-lynch-invest-skill，按其 E 段完成「12种危险说法识别与反驳+衍生品否定」相关任务并给出结构化结论。判定依据：危险说法『不可能再跌了』+抄底动作；应识别说法并给出书中反驳（可再跌一半）",
-      "notes": "危险说法『不可能再跌了』+抄底动作；应识别说法并给出书中反驳（可再跌一半）"
+      "prompt": "帮我全面分析这只股票，做个尽调。",
+      "expected_behavior": "触发单入口：加载 analyze-checklist-ch15，通用层+类型专项层输出核查表与缺口",
+      "notes": "正面：全面核查意图"
     },
     {
-      "id": "cls-info-01",
+      "id": "should-not-trigger-01",
       "type": "should_not_trigger",
-      "prompt": "沪深两市下午几点收盘，节假日休市安排去哪查",
-      "expected_behavior": "不应激活任何能力：纯信息查询。判定依据：纯信息查询诱饵，不含任何分析任务，不应触发任何能力",
-      "notes": "纯信息查询诱饵，不含任何分析任务，不应触发任何能力"
+      "prompt": "明天大盘会涨还是跌？帮我预测一下这周走势。",
+      "expected_behavior": "不应触发：本技能包明确不做大盘/指数预测与择时（out_of_scope）；直接说明不提供择时预测，如需要应转专门的宏观/择时工具",
+      "notes": "诱饵：越界请求——书中明确否定市场预测"
     },
     {
-      "id": "decoy-out-of-scope",
+      "id": "should-not-trigger-02",
       "type": "should_not_trigger",
-      "prompt": "明天大盘会涨还是跌？帮我预测一下这周的走势",
-      "expected_behavior": "不应激活：本技能包明确不做大盘/指数预测（out_of_scope），应说明不提供择时预测",
-      "notes": "诱饵：书内明确否定市场预测，属越界请求"
+      "prompt": "帮我算算这只可转债的转股溢价率，值不值得打新。",
+      "expected_behavior": "不应触发：可转债定价与打新不在本书能力域，应转可转债/固收类技能",
+      "notes": "诱饵：领域外请求，防止硬套选股框架"
     },
     {
-      "id": "cls-edge-01",
+      "id": "edge-01",
       "type": "edge_case",
-      "prompt": "银行股是不是都算稳定增长型，买着吃股息就稳了",
-      "expected_behavior": "边界处理：可澄清需求、转路由或谨慎不触发，但须说明理由。判定依据：行业整体归型+『稳了』期望偏差。分类能力面向单公司判定，预期倾向谨慎：不直接给『稳了』结论，纠正行业不等于类型、需逐家看增长率与股息记录后再归型",
-      "notes": "边界：行业整体归型+『稳了』期望偏差。分类能力面向单公司判定，预期倾向谨慎：不直接给『稳了』结论，纠正行业不等于类型、需逐家看增长率与股息记录后再归型"
+      "prompt": "顺便问一下，什么叫隐蔽资产型公司？",
+      "expected_behavior": "边界处理：概念问答——用核心原则/术语表回答定义，不加载能力卡、不要求公司数据",
+      "notes": "边界：加载规则明确概览/术语类不加载卡"
     },
     {
-      "id": "sell-edge-01",
+      "id": "edge-02",
       "type": "edge_case",
-      "prompt": "要不要给我持仓设个跌10%自动卖出的止损单",
-      "expected_behavior": "边界处理：可澄清需求、转路由或谨慎不触发，但须说明理由。判定依据：止损指令设置。书中口径：不用止损指令、价格下跌本身不是卖出理由。预期倾向不触发卖出判据，应回『触发的是基本面核查而非自动卖出』并导向组合纪律/复查",
-      "notes": "边界：止损指令设置。书中口径：不用止损指令、价格下跌本身不是卖出理由。预期倾向不触发卖出判据，应回『触发的是基本面核查而非自动卖出』并导向组合纪律/复查"
+      "prompt": "这只票该不该买？",
+      "expected_behavior": "边界处理：缺类型与关键数据——先归型并索取收益、负债、现金、增长率等必需字段，不猜值、不直接给买卖结论",
+      "notes": "边界：判停条件（数据缺失先补）"
     }
-  ],
-  "minimum_pass_rate": 0.8,
-  "notes": "single 入口代表集（6能力触发+2诱饵+2边界）；完整98条触发用例见 evals/trigger-*.json 与 reach-*.json。"
+  ]
 }

@@ -116,7 +116,7 @@ This book needed one more layer: the original is set in the 1980s US market, so 
 
 ## Testing and verification
 
-This repository publishes the test material from the generation process alongside the skills: `evals/test-results.md` is the item-by-item scoring report, including failing cases, correction rules and known test biases — not just the passes.
+This repository publishes the test material from the generation process alongside the skills: `test-results.md` at the repository root is the item-by-item scoring report, including failing cases, correction rules and known test biases — not just the passes; the trigger regression cases live in each skill directory as `test-prompts.json`.
 
 - **Trigger precision**: 98 prompts shuffled and handed to 4 independent blind-test agents that see only the name/description of the 12 cards and the router entry. Every hard metric passed — promoted skills fired when they should 28/28, pure information-query decoys 7/7 with zero false triggers, and zero cross-calling among promoted skills 7/7
 - **Raw and corrected figures both published**: raw hit rate 59/98 (60.2%); under the report's three documented correction rules (R1 direct selection of a router-domain card, R2 reasonable handling of edge cases, R3 reachability including direct selection) 98/98. Both figures are disclosed side by side
@@ -130,83 +130,31 @@ This repository publishes the test material from the generation process alongsid
 
 ```text
 peter-lynch-invest-skill/
-├── README.md                        ← Chinese version
-├── README.en.md                     ← you are reading this
-├── LICENSE                          ← MIT
-├── BOOK_OVERVIEW.md                 ← whole-book comprehension (Adler four-step, stage 0 output)
-├── TEST_SUMMARY.md                  ← stage 4 stress-test summary (scope / structural checks / results)
-├── CANGJIE_ADAPTATION.md            ← Cangjie adaptation note (text state / goals / evidence rules / boundaries)
-├── verified.md                      ← triple-verification conclusions for the 13 canonical units
-├── INDEX.md                         ← skill map: capability table + dependencies + loading order
-├── bundle/                          ← canonical bundle (audit artifact, source of truth)
-│   ├── verified.yaml                ← full definitions and promotion verdicts for the 12 cards
-│   ├── cards/                       ← the 12 capability cards as authored
-│   │   ├── analyze-checklist-ch15.md
-│   │   ├── classify-six-types.md
-│   │   ├── dangerous-sayings.md
-│   │   ├── financial-checklist-13.md
-│   │   ├── pe-valuation.md
-│   │   ├── portfolio-rules.md
-│   │   ├── recheck-holdings.md
-│   │   ├── research-info-gathering.md
-│   │   ├── self-test-eligibility.md
-│   │   ├── sell-rules-by-type.md
-│   │   ├── stock-screening-checklists.md
-│   │   └── two-minute-story.md
-│   └── book/                        ← book-level material
-│       ├── overview.md
-│       └── glossary.md
-├── candidates/                      ← stage 1 extractor candidate pool (609 items, audit archive)
-│   ├── frameworks.md                ← 75 frameworks (merged)
-│   ├── frameworks.partA.md          ← frameworks, part A (32)
-│   ├── frameworks.partB.md          ← frameworks, part B (43)
-│   ├── principles.md                ← 288 principles (merged)
-│   ├── principles.partA.md          ← principles, part A (122)
-│   ├── principles.partB.md          ← principles, part B (166)
-│   ├── cases.md                     ← 132 cases
-│   ├── counter-examples.md          ← 89 counter-examples
-│   └── glossary.md                  ← 25 glossary entries
-├── single/                          ← single-entry build
-│   └── peter-lynch-invest-skill/
-│       ├── SKILL.md                 ← entry: triggers + routing table + loading rules
-│       ├── BUILD_MANIFEST.json      ← build manifest and file hashes
-│       ├── test-prompts.json        ← regression cases for the entry skill (10)
-│       └── references/
-│           ├── overview.md          ← whole-book overview
-│           ├── capability-index.md  ← full intent and keyword index
-│           ├── cheatsheet.md        ← decision-rule quick reference
-│           ├── glossary.md          ← glossary
-│           └── capabilities/        ← 12 capability cards (same names as bundle/cards)
-├── pack/                            ← multi-entry build (compact pack)
-│   ├── BUILD_MANIFEST.json
-│   ├── capability-destinations.json
-│   ├── peter-lynch-invest-skill-router/
-│   │   ├── SKILL.md                 ← source router entry
-│   │   ├── test-prompts.json        ← regression cases for the router (35)
-│   │   └── references/              ← 12 cards + 4 indexes, called by the router
-│   ├── analyze-checklist-ch15/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json        ← regression cases (9)
-│   ├── classify-six-types/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json        ← regression cases (9)
-│   ├── dangerous-sayings/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json        ← regression cases (9)
-│   ├── financial-checklist-13/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json        ← regression cases (9)
-│   ├── pe-valuation/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json        ← regression cases (9)
-│   ├── sell-rules-by-type/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json        ← regression cases (9)
-│   └── stock-screening-checklists/
-│       ├── SKILL.md
-│       └── test-prompts.json        ← regression cases (9)
-└── evals/
-    └── test-results.md              ← trigger blind tests and output evaluation, item by item
+├── README.md              ← Chinese version
+├── README.en.md           ← you are reading this
+├── LICENSE                ← MIT
+├── BOOK_OVERVIEW.md       ← stage 0 output: Adler whole-book analysis
+├── INDEX.md               ← stage 3 output: skill map + dependencies
+├── verified.md            ← 13 units that passed triple verification
+├── TEST_SUMMARY.md        ← stage 4 output: stress-test summary
+├── CANGJIE_ADAPTATION.md  ← cangjie adaptation notes
+├── GITHUB_REPO.md         ← repository metadata
+├── test-results.md        ← test result records
+├── candidates/            ← stage 1 output: raw candidate pool
+│   ├── frameworks.md      ← framework and method candidates
+│   ├── principles.md      ← principle / rule / calculation candidates
+│   ├── cases.md           ← case candidates from the book
+│   ├── counter-examples.md← counter-example and boundary candidates
+│   └── glossary.md        ← terminology candidates
+├── rejected/              ← stage 1.5 output: rejected units + reasons
+├── bundle/                ← compilation source of truth
+│   ├── verified.yaml      ← capability metadata, criteria and destinations
+│   ├── cards/             ← capability card sources (six sections)
+│   └── book/              ← overview.md + glossary.md
+├── single/                ← single-mode build (one entry + all capability cards)
+│   └── peter-lynch-invest-skill/SKILL.md  ← entry: triggers + routing table + loading rules
+└── pack/                  ← pack-mode build (one router + 7 promoted skills)
+    └── */SKILL.md         ← 8 skills, each shipping a test-prompts.json
 ```
 
 ## Usage

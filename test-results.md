@@ -2,7 +2,7 @@
 
 > 测试对象：bundle.one-up-on-wall-street（12能力：7晋级+5路由）
 > 运行环境：ZCode sub-agent 盲测，GLM 系模型，2026-10-26
-> 用例与原始输出：`.cangjie/evals/`（trigger-*.json / reach-*.json / output-all.json / blind-trigger-result*.json / output-run/）
+> 用例与原始输出：归档 `.cangjie/` 下的 trigger-*.json / reach-*.json / output-all.json / blind-trigger-result*.json / output-run/（未随本仓库发布）
 
 ## 一、触发精度测试（7个晋级能力）
 
@@ -60,7 +60,7 @@ without_skill 的2个失败用例：
 - 可达性：**通过**（5路由能力全部经入口或直选可达，sibling不抢）
 - 实际执行：**通过**（new_skill 24/24断言，含全部数值复算：P/E=20.00/得分0.85/每股净现金7.0/调整价8.0/调整P/E 8.0/净现金0.8/上限5万/3-10只）
 - **无需回炉的能力：0个**；无需修改 description 的能力：0个
-- 回归集：全部98条触发用例+24条输出用例保留于 .cangjie/evals/，供 darwin-skill 进化使用
+- 回归集：全部98条触发用例+24条输出用例保留于归档 `.cangjie/`（未随本仓库发布），供 darwin-skill 进化使用；本仓库发布的是各 skill 目录下的 `test-prompts.json` 回归集
 
 ## 四、Token/耗时记录（subagent_tokens，来自执行代理用量）
 

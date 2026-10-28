@@ -1,73 +1,62 @@
 {
   "skill": "classify-six-types",
-  "version": "0.1.0",
-  "source_book": "彼得·林奇的成功投资（One Up on Wall Street） — 彼得·林奇、约翰·罗瑟查尔德",
-  "darwin_compatible": true,
+  "version": "1.0.0",
   "test_cases": [
     {
-      "id": "cls-st-01",
+      "id": "should-trigger-01",
       "type": "should_trigger",
-      "prompt": "帮我看看长江电力这种水电股属于哪种类型的公司",
-      "expected_behavior": "应激活 classify-six-types，按其 E 段完成「六类公司分类判定」相关任务并给出结构化结论。判定依据：单公司归型意图，无买卖诉求；应输出类型判定+依据+对应期望，不做估值",
-      "notes": "单公司归型意图，无买卖诉求；应输出类型判定+依据+对应期望，不做估值"
+      "prompt": "长江电力这种水电股，一年净利润就涨3%出头，股息倒有5个点，这算哪类公司？",
+      "expected_behavior": "触发六类分类：按增长率标尺（2%-4%带→缓慢增长型）归型，用慷慨股息与走势平坦作形态佐证，输出类型+≥2条依据+该类型期望收益",
+      "notes": "正面：典型缓慢增长型，增长率与股息两个判据同时可核"
     },
     {
-      "id": "cls-st-02",
+      "id": "should-trigger-02",
       "type": "should_trigger",
-      "prompt": "牧原股份这种猪价一涨一跌的，算周期股还是成长股啊",
-      "expected_behavior": "应激活 classify-six-types，按其 E 段完成「六类公司分类判定」相关任务并给出结构化结论。判定依据：两类型二选一的口语变体；判定须用增长率与收益形态作依据",
-      "notes": "两类型二选一的口语变体；判定须用增长率与收益形态作依据"
+      "prompt": "牧原股份猪价一涨利润翻倍、猪价一跌就亏，这种大起大落到底算周期股还是成长股？",
+      "expected_behavior": "触发六类分类：收益按扩张-收缩规律循环→周期型；须与困境反转区分（有无致命伤、是否濒临破产），输出类型+依据",
+      "notes": "正面：周期vs成长的口语二选一，考的是收益形态判据而非行业标签"
     },
     {
-      "id": "cls-st-03",
+      "id": "should-trigger-03",
       "type": "should_trigger",
-      "prompt": "这家公司新出的爆款产品卖疯了，能靠这个去买它股票吗",
-      "expected_behavior": "应激活 classify-six-types，按其 E 段完成「六类公司分类判定」相关任务并给出结构化结论。判定依据：热门产品占比意图；应以产品净利润占比测算回应，不直接答能不能买",
-      "notes": "热门产品占比意图；应以产品净利润占比测算回应，不直接答能不能买"
+      "prompt": "这家公司新出的面膜卖爆了，能因为产品火就去买它股票吗？",
+      "expected_behavior": "触发分类卡的产品占比测算：先算产品收入占比与利润占比（收入占比<1.5%可忽略、利润占比≥15%可认定主驱动），再判规模与类型；不直接回答能不能买",
+      "notes": "正面：帮宝适谬误高发场景，考的是占比测算而非选股结论"
     },
     {
-      "id": "cls-st-04",
+      "id": "should-trigger-04",
       "type": "should_trigger",
-      "prompt": "Is BYD a cyclical or a fast grower? How do I tell?",
-      "expected_behavior": "应激活 classify-six-types，按其 E 段完成「六类公司分类判定」相关任务并给出结构化结论。判定依据：英文变体：类型二选一+判定方法诉求",
-      "notes": "英文变体：类型二选一+判定方法诉求"
+      "prompt": "这家千亿市值的大白马，还指望它两年翻倍现实吗？",
+      "expected_behavior": "触发分类卡的规模判据：公司越大涨幅上限越低（GE市值≈GNP 1%仍只能蜗牛式上涨），给出规模定位与涨幅预期上限，不承诺具体倍数",
+      "notes": "正面：规模-涨幅关系是分类卡明确承载的判据"
     },
     {
-      "id": "cls-info-01",
+      "id": "should-not-trigger-01",
       "type": "should_not_trigger",
-      "prompt": "沪深两市下午几点收盘，节假日休市安排去哪查",
-      "expected_behavior": "不应激活任何能力：纯信息查询。判定依据：纯信息查询诱饵，不含任何分析任务，不应触发任何能力",
-      "notes": "纯信息查询诱饵，不含任何分析任务，不应触发任何能力"
+      "prompt": "帮我算算这只票P/E 35倍配20%的增速，算贵还是便宜？",
+      "expected_behavior": "不应触发本卡：这是估值判断，应转 pe-valuation（P/E vs 增长率、含股息修正得分）",
+      "notes": "诱饵：同书兄弟能力——估值问题不归分类卡"
     },
     {
-      "id": "cls-sib-01",
+      "id": "should-not-trigger-02",
       "type": "should_not_trigger",
-      "prompt": "手上的白酒股套了20%了，现在到底要不要卖",
-      "expected_behavior": "不应激活本 skill，应激活 sell-rules-by-type。判定依据：兄弟能力诱饵：卖出判据意图而非归型意图",
-      "notes": "跨 skill 混淆诱饵：兄弟能力诱饵：卖出判据意图而非归型意图"
+      "prompt": "我持有的这只票涨了40%，现在该不该卖？",
+      "expected_behavior": "不应触发本卡：类型已知时应直接转 sell-rules-by-type 做卖出三态裁决；只有类型未知才先归型",
+      "notes": "诱饵：卖出意图，避免分类卡抢走卖出判定"
     },
     {
-      "id": "cls-sib-02",
-      "type": "should_not_trigger",
-      "prompt": "我明天想下单买宁德时代，帮我先把买入理由和风险捋一遍",
-      "expected_behavior": "不应激活本 skill，应激活 one-up-on-wall-street-router。判定依据：两分钟独白（router能力）场景：下单前组织理由，不是归型任务",
-      "notes": "跨 skill 混淆诱饵：两分钟独白（router能力）场景：下单前组织理由，不是归型任务"
-    },
-    {
-      "id": "cls-edge-01",
+      "id": "edge-01",
       "type": "edge_case",
-      "prompt": "银行股是不是都算稳定增长型，买着吃股息就稳了",
-      "expected_behavior": "边界处理：可澄清需求、转路由或谨慎不触发，但须说明理由。判定依据：行业整体归型+『稳了』期望偏差。分类能力面向单公司判定，预期倾向谨慎：不直接给『稳了』结论，纠正行业不等于类型、需逐家看增长率与股息记录后再归型",
-      "notes": "边界：行业整体归型+『稳了』期望偏差。分类能力面向单公司判定，预期倾向谨慎：不直接给『稳了』结论，纠正行业不等于类型、需逐家看增长率与股息记录后再归型"
+      "prompt": "某公司净利增速8%，不上不下，股息率只有1%，走势倒是平稳——到底算缓慢增长还是稳定增长？",
+      "expected_behavior": "边界处理：8%落在4%-10%边界带，按最近似归型（稳定增长）并标注不确定，用股息偏低、走势平稳作二次佐证，给出两个候选类各自成立条件",
+      "notes": "边界：六类边界带无仲裁规则，考的是不确定标注而非硬给答案"
     },
     {
-      "id": "cls-edge-02",
+      "id": "edge-02",
       "type": "edge_case",
-      "prompt": "帮我看看这只股票算哪类，顺便看看现在贵不贵",
-      "expected_behavior": "边界处理：可澄清需求、转路由或谨慎不触发，但须说明理由。判定依据：混合意图（归型+估值）。预期：可以触发分类为第一步，但应声明估值部分由估值能力承接，不一口气全答",
-      "notes": "边界：混合意图（归型+估值）。预期：可以触发分类为第一步，但应声明估值部分由估值能力承接，不一口气全答"
+      "prompt": "顺便问下，到底什么叫周期股？",
+      "expected_behavior": "边界处理：概念解释类提问只答定义，不启动归型流程、不要求公司数据",
+      "notes": "边界：定义问答 vs 实际归型，防止对纯概念问题跑全套流程"
     }
-  ],
-  "minimum_pass_rate": 0.8,
-  "notes": "由 .cangjie/evals/trigger-classify-six-types.json 机械转换；完整评测与基线见 evals/test-results.md 与 evals/output-run/。至少3条should_trigger+2条should_not_trigger(含1条同书兄弟诱饵)+1条edge_case；全部should_not_trigger必须通过(容错0)。"
+  ]
 }

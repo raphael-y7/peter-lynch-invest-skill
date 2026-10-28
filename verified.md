@@ -3,6 +3,7 @@
 > 验证标准：methodology/03-stage1.5-triple-verify.md（V1来源充分性 / V2可执行性walkthrough / V3任务增益）
 > 每单元完整验证记录（含逐候选 decision、V1抽查、V2演练输入输出、B段素材、缺口）见 `verified-parts/U*.md`。
 > 候选池总量 609 条（frameworks 75 / principles 288 / cases 132 / counter-examples 89 / glossary 25）。
+> 编译去向：13 个规范单元编译为 **12 条能力**（`bundle/verified.yaml` 的 `capabilities` 实测 12 条）——U03「13条选股准则」与 U04「避而不买清单」输出契约相同，合并为 `stock-screening-checklists` 一张能力卡，故能力数与单元数相差 1。
 
 ## 单元总表
 

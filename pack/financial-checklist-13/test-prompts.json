@@ -1,73 +1,62 @@
 {
   "skill": "financial-checklist-13",
-  "version": "0.1.0",
-  "source_book": "彼得·林奇的成功投资（One Up on Wall Street） — 彼得·林奇、约翰·罗瑟查尔德",
-  "darwin_compatible": true,
+  "version": "1.0.0",
   "test_cases": [
     {
-      "id": "fin-st-01",
+      "id": "should-trigger-01",
       "type": "should_trigger",
-      "prompt": "帮我看看这家公司刚发的年报，现金和负债这块健康吗",
-      "expected_behavior": "应激活 financial-checklist-13，按其 E 段完成「13项财务指标核查」相关任务并给出结构化结论。判定依据：年报核查入口意图；应跳过文字直取数字，逐项输出核查表",
-      "notes": "年报核查入口意图；应跳过文字直取数字，逐项输出核查表"
+      "prompt": "帮我看看这家公司年报：现金80亿、有价证券20亿、长期负债30亿、总股本10亿股，股价15块，实际买价到底多少？",
+      "expected_behavior": "触发财务核查：现金头寸=100亿，净现金=100-30=70亿，每股净现金=70÷10=7.00元，实际买价=15-7=8.00元，并给出现金高于长期负债的判断",
+      "notes": "正面：每股净现金公式可直接复算，是福特16.30美元算例的同构"
     },
     {
-      "id": "fin-st-02",
+      "id": "should-trigger-02",
       "type": "should_trigger",
-      "prompt": "一份年报两百多页，怎么快速读出有用的财务信息",
-      "expected_behavior": "应激活 financial-checklist-13，按其 E 段完成「13项财务指标核查」相关任务并给出结构化结论。判定依据：年报阅读法意图（第12章）：跳过装饰性文字直取资产负债表数字",
-      "notes": "年报阅读法意图（第12章）：跳过装饰性文字直取资产负债表数字"
+      "prompt": "这公司破净了，PB只有0.6，能不能捡便宜？",
+      "expected_behavior": "触发财务核查：账面价值陷阱——负债是真实的、资产是估计的，核对资产真实变现价（佩恩中央/艾伦伍德/Radice案例），只输出真实变现价存疑，不输出便宜",
+      "notes": "正面：破净≠便宜，卡内B段第1条"
     },
     {
-      "id": "fin-st-03",
+      "id": "should-trigger-03",
       "type": "should_trigger",
-      "prompt": "这家公司存货增速比营收快了一倍，是危险信号吗",
-      "expected_behavior": "应激活 financial-checklist-13，按其 E 段完成「13项财务指标核查」相关任务并给出结构化结论。判定依据：单项指标核查变体：存货增速超销售=危险的口径",
-      "notes": "单项指标核查变体：存货增速超销售=危险的口径"
+      "prompt": "它存货同比涨了30%，收入只涨10%，这是什么信号？",
+      "expected_behavior": "触发财务核查：存货增速超销售增速=危险信号，须同口径比较并连续多季跟踪，与现金流、负债信号交叉验证",
+      "notes": "正面：存货判据有明确阈值方向"
     },
     {
-      "id": "fin-st-04",
+      "id": "should-trigger-04",
       "type": "should_trigger",
-      "prompt": "How do I check if this company's balance sheet is healthy?",
-      "expected_behavior": "应激活 financial-checklist-13，按其 E 段完成「13项财务指标核查」相关任务并给出结构化结论。判定依据：英文变体：资产负债表健康度核查",
-      "notes": "英文变体：资产负债表健康度核查"
+      "prompt": "这股股息率6%，我想靠它收息，能不能持续？",
+      "expected_behavior": "触发财务核查：查20-30年连续派息记录与派息能力（衰退期是否仍付息），最终回到资产负债表判断可持续性（Southmark/联合爱迪生教训）",
+      "notes": "正面：股息记录是抗跌证据而非保票"
     },
     {
-      "id": "fin-info-01",
+      "id": "should-not-trigger-01",
       "type": "should_not_trigger",
-      "prompt": "上市公司年报一般在几月份披露，去哪里下载",
-      "expected_behavior": "不应激活任何能力：纯信息查询。判定依据：纯信息查询诱饵（披露安排与渠道），不含解读任务",
-      "notes": "纯信息查询诱饵（披露安排与渠道），不含解读任务"
+      "prompt": "P/E 20倍配15%增长，这估值算合理吗？",
+      "expected_behavior": "不应触发本卡：完整估值判定应转 pe-valuation；本卡对P/E只做占位与交叉核对",
+      "notes": "诱饵：同书兄弟能力——估值归估值卡"
     },
     {
-      "id": "fin-sib-01",
+      "id": "should-not-trigger-02",
       "type": "should_not_trigger",
-      "prompt": "帮我对这只股票做一次从头到尾的全面分析",
-      "expected_behavior": "不应激活本 skill，应激活 analyze-checklist-ch15。判定依据：兄弟能力诱饵：全面分析走第15章通用+分类型核查表，13项财务只是其中一层",
-      "notes": "跨 skill 混淆诱饵：兄弟能力诱饵：全面分析走第15章通用+分类型核查表，13项财务只是其中一层"
+      "prompt": "我想给上市公司董秘打电话问情况，该怎么问？",
+      "expected_behavior": "不应触发本卡：调研渠道与提问清单应转 research-info-gathering",
+      "notes": "诱饵：取数渠道 vs 指标解读"
     },
     {
-      "id": "fin-sib-02",
-      "type": "should_not_trigger",
-      "prompt": "想给上市公司证券部打电话，该问哪些问题",
-      "expected_behavior": "不应激活本 skill，应激活 one-up-on-wall-street-router。判定依据：调研提问程序（research-info-gathering，router能力）场景",
-      "notes": "跨 skill 混淆诱饵：调研提问程序（research-info-gathering，router能力）场景"
-    },
-    {
-      "id": "fin-edge-01",
+      "id": "edge-01",
       "type": "edge_case",
-      "prompt": "银行股负债率90%多，是不是要暴雷了",
-      "expected_behavior": "边界处理：可澄清需求、转路由或谨慎不触发，但须说明理由。判定依据：金融业报表口径边界。书中负债正常线针对工业企业，银行资产负债结构特殊。预期谨慎：先声明口径不适用，做有限解读，不机械套13项判死",
-      "notes": "边界：金融业报表口径边界。书中负债正常线针对工业企业，银行资产负债结构特殊。预期谨慎：先声明口径不适用，做有限解读，不机械套13项判死"
+      "prompt": "我只有净利润和营收，没有现金流量表，能判断这家公司吗？",
+      "expected_behavior": "边界处理：自由现金流指标必须补现金流量表，禁止用净利润替代现金流；缺项记无法核查并列入缺口，其余指标照跑",
+      "notes": "边界：缺关键表时的判停，不许静默跳过"
     },
     {
-      "id": "fin-edge-02",
+      "id": "edge-02",
       "type": "edge_case",
-      "prompt": "这家新三板公司现金明细没披露，帮我估估它值多少钱",
-      "expected_behavior": "边界处理：可澄清需求、转路由或谨慎不触发，但须说明理由。判定依据：关键数据缺失边界（stop condition：先补数据不猜值）。预期倾向不输出完整核查表，要求先补齐现金/负债数据",
-      "notes": "边界：关键数据缺失边界（stop condition：先补数据不猜值）。预期倾向不输出完整核查表，要求先补齐现金/负债数据"
+      "prompt": "账面价值每股40块，股价才10块，这不是稳赚吗？",
+      "expected_behavior": "边界处理：账面价值经常失真（织布机账面86.6万美元拍卖只卖16.3万），高负债+虚资产可把正账面做成负价值，须核真实变现价",
+      "notes": "边界：账面陷阱的极端形态，考的是不背书"
     }
-  ],
-  "minimum_pass_rate": 0.8,
-  "notes": "由 .cangjie/evals/trigger-financial-checklist-13.json 机械转换；完整评测与基线见 evals/test-results.md 与 evals/output-run/。至少3条should_trigger+2条should_not_trigger(含1条同书兄弟诱饵)+1条edge_case；全部should_not_trigger必须通过(容错0)。"
+  ]
 }

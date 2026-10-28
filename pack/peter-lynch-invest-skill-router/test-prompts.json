@@ -1,255 +1,69 @@
 {
   "skill": "peter-lynch-invest-skill-router",
-  "version": "0.1.0",
-  "source_book": "彼得·林奇的成功投资（One Up on Wall Street） — 彼得·林奇、约翰·罗瑟查尔德",
-  "darwin_compatible": true,
+  "version": "1.0.0",
   "test_cases": [
     {
-      "id": "portfolio-rules-reach-1",
+      "id": "should-trigger-01",
       "type": "should_trigger",
-      "prompt": "手上就二十来万闲钱，买几只股票比较合适？",
-      "expected_behavior": "应激活 peter-lynch-invest-skill-router，按其 E 段完成「来源路由入口」相关任务并给出结构化结论",
-      "notes": ""
+      "prompt": "明天准备下单了，帮我把买入理由捋一遍，看讲不讲得清楚。",
+      "expected_behavior": "触发路由入口：加载 two-minute-story 能力卡，按类型化故事模板输出为什么买+成功条件+风险，讲不清即不买",
+      "notes": "正面：未晋级为独立入口的两分钟独白，必须经路由到达"
     },
     {
-      "id": "portfolio-rules-reach-2",
+      "id": "should-trigger-02",
       "type": "should_trigger",
-      "prompt": "刚把白酒卖了，回笼的钱不想空仓闲着，现在换什么好？",
-      "expected_behavior": "应激活 peter-lynch-invest-skill-router，按其 E 段完成「来源路由入口」相关任务并给出结构化结论",
-      "notes": ""
+      "prompt": "持仓半年了，多久该复查一次基本面？",
+      "expected_behavior": "触发路由入口：加载 recheck-holdings，给触发条件（定期+新情况驱动）、核查五项与三态行动",
+      "notes": "正面：定期复查属路由域能力"
     },
     {
-      "id": "portfolio-rules-reach-3",
+      "id": "should-trigger-03",
       "type": "should_trigger",
-      "prompt": "我满仓一只银行股，算不算 concentration risk，要不要再分散点？",
-      "expected_behavior": "应激活 peter-lynch-invest-skill-router，按其 E 段完成「来源路由入口」相关任务并给出结构化结论",
-      "notes": ""
+      "prompt": "我手上四只票，想再加一只，仓位怎么配比较稳？",
+      "expected_behavior": "触发路由入口：加载 portfolio-rules，给3-10只数量约束、类型搭配与换股不换现金纪律",
+      "notes": "正面：组合纪律属路由域能力"
     },
     {
-      "id": "portfolio-rules-reach-4",
+      "id": "should-trigger-04",
       "type": "should_trigger",
-      "prompt": "大家都说设个止损指令更稳，我怎么感觉不太对劲？",
-      "expected_behavior": "应激活 peter-lynch-invest-skill-router，按其 E 段完成「来源路由入口」相关任务并给出结构化结论",
-      "notes": ""
+      "prompt": "我28岁，租房，15万积蓄里10万两年内要付首付，现在适合入市吗？",
+      "expected_behavior": "触发路由入口：加载 self-test-eligibility，按入市三问判定——10万刚性用途资金须剔除，可入市上限约5万，并做素质自评",
+      "notes": "正面：入市资格自测，含具体资金时限约束"
     },
     {
-      "id": "portfolio-rules-reach-5",
+      "id": "should-trigger-05",
+      "type": "should_trigger",
+      "prompt": "想去调研一家上市公司，该重点问哪些问题？",
+      "expected_behavior": "触发路由入口：加载 research-info-gathering，给事实型问题清单、形容词过滤纪律与A股渠道替换",
+      "notes": "正面：调研程序属路由域能力"
+    },
+    {
+      "id": "should-not-trigger-01",
       "type": "should_not_trigger",
-      "prompt": "想追的这只股市盈率都45倍了，利润增速才10%，这价格贵不贵？",
-      "expected_behavior": "不应激活本 skill，应激活 pe-valuation",
-      "notes": "跨 skill 混淆诱饵："
+      "prompt": "帮我判断这只票算周期股还是成长股。",
+      "expected_behavior": "不应触发路由入口：应直达已晋级技能 classify-six-types",
+      "notes": "诱饵：已晋级能力优先直用，路由器不抢"
     },
     {
-      "id": "portfolio-rules-reach-6",
+      "id": "should-not-trigger-02",
       "type": "should_not_trigger",
-      "prompt": "手头这三只票，帮我看各自算哪种类型，周期还是成长？",
-      "expected_behavior": "不应激活本 skill，应激活 classify-six-types",
-      "notes": "跨 skill 混淆诱饵："
+      "prompt": "P/E 40倍还能买吗？",
+      "expected_behavior": "不应触发路由入口：应直达 pe-valuation",
+      "notes": "诱饵：已晋级能力优先直用"
     },
     {
-      "id": "portfolio-rules-reach-7",
+      "id": "edge-01",
       "type": "edge_case",
-      "prompt": "最近大盘跌得太惨，我要不要先清仓躲一躲？",
-      "expected_behavior": "边界处理：可澄清需求、转路由或谨慎不触发，但须说明理由。判定依据：避险式清仓贴近大盘择时（书中学说明确不做大盘预测）。合理预期：不给出躲一躲的择时建议，明确超出范围；若担忧源于个股基本面，转分类型卖出判据；纯指数层面的避险诉求应说明不在能力范围并解释换股不闲置的口径",
-      "notes": "边界：避险式清仓贴近大盘择时（书中学说明确不做大盘预测）。合理预期：不给出躲一躲的择时建议，明确超出范围；若担忧源于个股基本面，转分类型卖出判据；纯指数层面的避险诉求应说明不在能力范围并解释换股不闲置的口径"
+      "prompt": "帮我看看这家公司。",
+      "expected_behavior": "边界处理：信息不足，先澄清意图（要看类型/估值/财务/卖出中的哪一项）并索取数据，不硬路由到某一能力",
+      "notes": "边界：泛化请求先澄清"
     },
     {
-      "id": "recheck-holdings-reach-1",
-      "type": "should_trigger",
-      "prompt": "拿了半年的消费股，一般隔多久要重新查一遍基本面？",
-      "expected_behavior": "应激活 peter-lynch-invest-skill-router，按其 E 段完成「来源路由入口」相关任务并给出结构化结论",
-      "notes": ""
-    },
-    {
-      "id": "recheck-holdings-reach-2",
-      "type": "should_trigger",
-      "prompt": "持仓股刚发了季报，利润增速比上季度慢了不少，要不要重新评估一下？",
-      "expected_behavior": "应激活 peter-lynch-invest-skill-router，按其 E 段完成「来源路由入口」相关任务并给出结构化结论",
-      "notes": ""
-    },
-    {
-      "id": "recheck-holdings-reach-3",
-      "type": "should_trigger",
-      "prompt": "每季度出完 earnings 我该把持仓重查一遍吗，还是等出了坏消息再看？",
-      "expected_behavior": "应激活 peter-lynch-invest-skill-router，按其 E 段完成「来源路由入口」相关任务并给出结构化结论",
-      "notes": ""
-    },
-    {
-      "id": "recheck-holdings-reach-4",
-      "type": "should_trigger",
-      "prompt": "我拿的连锁餐饮股开店速度明显慢下来了，帮我看看它现在处于哪个阶段",
-      "expected_behavior": "应激活 peter-lynch-invest-skill-router，按其 E 段完成「来源路由入口」相关任务并给出结构化结论",
-      "notes": ""
-    },
-    {
-      "id": "recheck-holdings-reach-5",
-      "type": "should_not_trigger",
-      "prompt": "我拿的周期股已经涨了60%了，现在该不该落袋？",
-      "expected_behavior": "不应激活本 skill，应激活 sell-rules-by-type",
-      "notes": "跨 skill 混淆诱饵："
-    },
-    {
-      "id": "recheck-holdings-reach-6",
-      "type": "should_not_trigger",
-      "prompt": "把这份年报里的现金头寸和负债情况帮我过一遍，看看危险不危险",
-      "expected_behavior": "不应激活本 skill，应激活 financial-checklist-13",
-      "notes": "跨 skill 混淆诱饵："
-    },
-    {
-      "id": "recheck-holdings-reach-7",
+      "id": "edge-02",
       "type": "edge_case",
-      "prompt": "持仓今天大跌了7个点，我要不要重新查一遍基本面？",
-      "expected_behavior": "边界处理：可澄清需求、转路由或谨慎不触发，但须说明理由。判定依据：价格波动与基本面核查混淆：书中口径为价格下跌本身不是重查/卖出理由，新情况才是。合理预期：先指出单日波动不构成核查触发，反问是否有新情况（消息/经营事件）；仅波动则维持原核查节奏，不转入卖出判据",
-      "notes": "边界：价格波动与基本面核查混淆：书中口径为价格下跌本身不是重查/卖出理由，新情况才是。合理预期：先指出单日波动不构成核查触发，反问是否有新情况（消息/经营事件）；仅波动则维持原核查节奏，不转入卖出判据"
-    },
-    {
-      "id": "research-info-gathering-reach-1",
-      "type": "should_trigger",
-      "prompt": "下周要跟团去上市公司调研，我该重点问哪些问题才不被忽悠？",
-      "expected_behavior": "应激活 peter-lynch-invest-skill-router，按其 E 段完成「来源路由入口」相关任务并给出结构化结论",
-      "notes": ""
-    },
-    {
-      "id": "research-info-gathering-reach-2",
-      "type": "should_trigger",
-      "prompt": "给上市公司 IR 打电话，问什么问题能问出真实经营情况？",
-      "expected_behavior": "应激活 peter-lynch-invest-skill-router，按其 E 段完成「来源路由入口」相关任务并给出结构化结论",
-      "notes": ""
-    },
-    {
-      "id": "research-info-gathering-reach-3",
-      "type": "should_trigger",
-      "prompt": "董秘在互动易上回复订单饱满、前景广阔，这种话能信几分？",
-      "expected_behavior": "应激活 peter-lynch-invest-skill-router，按其 E 段完成「来源路由入口」相关任务并给出结构化结论",
-      "notes": ""
-    },
-    {
-      "id": "research-info-gathering-reach-4",
-      "type": "should_trigger",
-      "prompt": "除了看公告，还有哪些渠道能核实一家公司的真实经营情况？",
-      "expected_behavior": "应激活 peter-lynch-invest-skill-router，按其 E 段完成「来源路由入口」相关任务并给出结构化结论",
-      "notes": ""
-    },
-    {
-      "id": "research-info-gathering-reach-5",
-      "type": "should_not_trigger",
-      "prompt": "年报拿到了，重点该看哪几项财务指标？",
-      "expected_behavior": "不应激活本 skill，应激活 financial-checklist-13",
-      "notes": "跨 skill 混淆诱饵："
-    },
-    {
-      "id": "research-info-gathering-reach-6",
-      "type": "should_not_trigger",
-      "prompt": "群里都传这是下一个茅台，现在上车还来得及吗？",
-      "expected_behavior": "不应激活本 skill，应激活 stock-screening-checklists",
-      "notes": "跨 skill 混淆诱饵："
-    },
-    {
-      "id": "research-info-gathering-reach-7",
-      "type": "edge_case",
-      "prompt": "有朋友在这家公司上班，透露马上要重组了，这算调研成果吗？",
-      "expected_behavior": "边界处理：可澄清需求、转路由或谨慎不触发，但须说明理由。判定依据：内幕消息与合规调研混淆：未公开重大信息不属于调研程序的事实数据层，且涉内幕交易风险。合理预期：明确不采信、不作为调研依据，按小道消息处理并提示合规风险，引导回公开数据渠道（公告/互动易/调研纪要）",
-      "notes": "边界：内幕消息与合规调研混淆：未公开重大信息不属于调研程序的事实数据层，且涉内幕交易风险。合理预期：明确不采信、不作为调研依据，按小道消息处理并提示合规风险，引导回公开数据渠道（公告/互动易/调研纪要）"
-    },
-    {
-      "id": "self-test-eligibility-reach-1",
-      "type": "should_trigger",
-      "prompt": "工作三年攒了15万，想入市炒股，你看我现在适合进场吗？",
-      "expected_behavior": "应激活 peter-lynch-invest-skill-router，按其 E 段完成「来源路由入口」相关任务并给出结构化结论",
-      "notes": ""
-    },
-    {
-      "id": "self-test-eligibility-reach-2",
-      "type": "should_trigger",
-      "prompt": "明年要结婚买房，首付的钱能先拿去炒股搏一把吗？",
-      "expected_behavior": "应激活 peter-lynch-invest-skill-router，按其 E 段完成「来源路由入口」相关任务并给出结构化结论",
-      "notes": ""
-    },
-    {
-      "id": "self-test-eligibility-reach-3",
-      "type": "should_trigger",
-      "prompt": "我这条件算 ready 吗：有房无贷，30万闲钱三年内用不到",
-      "expected_behavior": "应激活 peter-lynch-invest-skill-router，按其 E 段完成「来源路由入口」相关任务并给出结构化结论",
-      "notes": ""
-    },
-    {
-      "id": "self-test-eligibility-reach-4",
-      "type": "should_trigger",
-      "prompt": "都说散户是被机构收割的命，我们普通人炒股真有任何优势吗？",
-      "expected_behavior": "应激活 peter-lynch-invest-skill-router，按其 E 段完成「来源路由入口」相关任务并给出结构化结论",
-      "notes": ""
-    },
-    {
-      "id": "self-test-eligibility-reach-5",
-      "type": "should_not_trigger",
-      "prompt": "这只票从高点跌了70%，应该不会再跌了吧，我想抄底",
-      "expected_behavior": "不应激活本 skill，应激活 dangerous-sayings",
-      "notes": "跨 skill 混淆诱饵："
-    },
-    {
-      "id": "self-test-eligibility-reach-6",
-      "type": "should_not_trigger",
-      "prompt": "新手第一次看年报，翻开直接懵了，该从哪里看起？",
-      "expected_behavior": "不应激活本 skill，应激活 financial-checklist-13",
-      "notes": "跨 skill 混淆诱饵："
-    },
-    {
-      "id": "self-test-eligibility-reach-7",
-      "type": "edge_case",
-      "prompt": "大学生，5000块压岁钱想练手炒股，就当交学费，行不行？",
-      "expected_behavior": "边界处理：可澄清需求、转路由或谨慎不触发，但须说明理由。判定依据：金额小与练手心态的两难：小额闲钱或可承受损失，但交学费心态本身是危险信号且学生无收入。合理预期：仍按三问逐项检查（资金性质/损失承受/素质），不因金额小直接放行，也不一刀切禁止，给出明确通过条件",
-      "notes": "边界：金额小与练手心态的两难：小额闲钱或可承受损失，但交学费心态本身是危险信号且学生无收入。合理预期：仍按三问逐项检查（资金性质/损失承受/素质），不因金额小直接放行，也不一刀切禁止，给出明确通过条件"
-    },
-    {
-      "id": "two-minute-story-reach-1",
-      "type": "should_trigger",
-      "prompt": "明天准备下单买万科了，帮我先把买入理由捋一遍，看讲不讲得清楚",
-      "expected_behavior": "应激活 peter-lynch-invest-skill-router，按其 E 段完成「来源路由入口」相关任务并给出结构化结论",
-      "notes": ""
-    },
-    {
-      "id": "two-minute-story-reach-2",
-      "type": "should_trigger",
-      "prompt": "朋友问我为啥买这只白酒股，我支支吾吾讲不出来，帮我把买入逻辑组织一下",
-      "expected_behavior": "应激活 peter-lynch-invest-skill-router，按其 E 段完成「来源路由入口」相关任务并给出结构化结论",
-      "notes": ""
-    },
-    {
-      "id": "two-minute-story-reach-3",
-      "type": "should_trigger",
-      "prompt": "我想买这只芯片股，帮我做个 investment thesis，看看逻辑站不站得住",
-      "expected_behavior": "应激活 peter-lynch-invest-skill-router，按其 E 段完成「来源路由入口」相关任务并给出结构化结论",
-      "notes": ""
-    },
-    {
-      "id": "two-minute-story-reach-4",
-      "type": "should_trigger",
-      "prompt": "下单之前怎么检验自己是不是真搞懂了一家公司，而不是跟风瞎买？",
-      "expected_behavior": "应激活 peter-lynch-invest-skill-router，按其 E 段完成「来源路由入口」相关任务并给出结构化结论",
-      "notes": ""
-    },
-    {
-      "id": "two-minute-story-reach-5",
-      "type": "should_not_trigger",
-      "prompt": "帮我全面分析一下宁德时代这只股票，该从哪几个方面入手看？",
-      "expected_behavior": "不应激活本 skill，应激活 analyze-checklist-ch15",
-      "notes": "跨 skill 混淆诱饵："
-    },
-    {
-      "id": "two-minute-story-reach-6",
-      "type": "should_not_trigger",
-      "prompt": "同事推荐的这只光伏股，先帮我把关看值不值得继续研究",
-      "expected_behavior": "不应激活本 skill，应激活 stock-screening-checklists",
-      "notes": "跨 skill 混淆诱饵："
-    },
-    {
-      "id": "two-minute-story-reach-7",
-      "type": "edge_case",
-      "prompt": "别人发我一个代码，帮我看看这个公司呗",
-      "expected_behavior": "边界处理：可澄清需求、转路由或谨慎不触发，但须说明理由。判定依据：意图与信息双缺：无公司名、无任务方向（分类/估值/财报/买入理由均可能）。合理预期：先追问澄清要看什么，不应直接生成买入独白；若用户不补充，默认按全面分析入口处理并声明假设，而不是硬套故事模板",
-      "notes": "边界：意图与信息双缺：无公司名、无任务方向（分类/估值/财报/买入理由均可能）。合理预期：先追问澄清要看什么，不应直接生成买入独白；若用户不补充，默认按全面分析入口处理并声明假设，而不是硬套故事模板"
+      "prompt": "用林奇那套方法帮我看看这只票。",
+      "expected_behavior": "边界处理：路由入口的典型触发——按路由表加载1张能力卡（必要时最多2张），不一次性展开12张",
+      "notes": "边界：方法指名但意图未明，靠加载规则收敛"
     }
-  ],
-  "minimum_pass_rate": 0.8,
-  "notes": "由 evals/reach-*.json 机械转换；覆盖5个路由能力可达性 + 兄弟诱饵（应由晋级技能承接）+ 边界。"
+  ]
 }

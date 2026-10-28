@@ -116,7 +116,7 @@ pack 里被晋级为独立 skill 的 7 张卡：
 
 ## 测试与验证
 
-本仓库连生成过程的测试材料一起发布：`evals/test-results.md` 是逐项评分报告，包含失败用例、修正规则与测试偏差的完整记录，不是只留通过记录。
+本仓库连生成过程的测试材料一起发布：根目录的 `test-results.md` 是逐项评分报告，包含失败用例、修正规则与测试偏差的完整记录，不是只留通过记录；触发回归用例见各 skill 目录下的 `test-prompts.json`。
 
 - **触发精度**：98 条 prompt 打乱后交 4 个独立盲测代理，只看 12 张卡与路由入口的 name/description 逐条选择。硬指标全过——晋级技能该触发时 28/28、纯信息查询诱饵 7/7 零误触、晋级技能之间零抢调用 7/7
 - **原始口径与修正口径同时披露**：原始命中 59/98（60.2%）；按报告里三条文档化修正规则（R1 路由域直选、R2 边界题合理处理、R3 可达性含直选）为 98/98，两条口径并列公开
@@ -130,83 +130,31 @@ pack 里被晋级为独立 skill 的 7 张卡：
 
 ```text
 peter-lynch-invest-skill/
-├── README.md                        ← 你正在看的
-├── README.en.md                     ← English version
-├── LICENSE                          ← MIT
-├── BOOK_OVERVIEW.md                 ← 整书理解（Adler 四步拆解，阶段 0 产出）
-├── TEST_SUMMARY.md                  ← 阶段 4 压力测试摘要（范围 / 结构检查 / 结果）
-├── CANGJIE_ADAPTATION.md            ← 仓颉适配说明（文本状态 / 蒸馏目标 / 证据规则 / 使用边界）
-├── verified.md                      ← 13 个规范单元的三重验证结论
-├── INDEX.md                         ← skill 地图：能力总表 + 依赖关系 + 加载顺序
-├── bundle/                          ← 规范 Bundle（审计产物，源真相）
-│   ├── verified.yaml                ← 12 张能力卡的完整定义与晋级结论
-│   ├── cards/                       ← 12 张能力卡原稿
-│   │   ├── analyze-checklist-ch15.md
-│   │   ├── classify-six-types.md
-│   │   ├── dangerous-sayings.md
-│   │   ├── financial-checklist-13.md
-│   │   ├── pe-valuation.md
-│   │   ├── portfolio-rules.md
-│   │   ├── recheck-holdings.md
-│   │   ├── research-info-gathering.md
-│   │   ├── self-test-eligibility.md
-│   │   ├── sell-rules-by-type.md
-│   │   ├── stock-screening-checklists.md
-│   │   └── two-minute-story.md
-│   └── book/                        ← 整书层素材
-│       ├── overview.md
-│       └── glossary.md
-├── candidates/                      ← 阶段 1 五提取器候选池（609 条，审计留档）
-│   ├── frameworks.md                ← 框架 75 条（合并稿）
-│   ├── frameworks.partA.md          ← 框架分卷 A（32 条）
-│   ├── frameworks.partB.md          ← 框架分卷 B（43 条）
-│   ├── principles.md                ← 原则 288 条（合并稿）
-│   ├── principles.partA.md          ← 原则分卷 A（122 条）
-│   ├── principles.partB.md          ← 原则分卷 B（166 条）
-│   ├── cases.md                     ← 案例 132 条
-│   ├── counter-examples.md          ← 反例 89 条
-│   └── glossary.md                  ← 术语 25 条
-├── single/                          ← 单一入口模式
-│   └── peter-lynch-invest-skill/
-│       ├── SKILL.md                 ← 入口：触发条件 + 路由表 + 加载规则
-│       ├── BUILD_MANIFEST.json      ← 编译清单与文件哈希
-│       ├── test-prompts.json        ← 入口 skill 的回归用例（10 条）
-│       └── references/
-│           ├── overview.md          ← 整书概览
-│           ├── capability-index.md  ← 完整意图与关键词索引
-│           ├── cheatsheet.md        ← 决策规则速查
-│           ├── glossary.md          ← 术语表
-│           └── capabilities/        ← 12 张能力卡（与 bundle/cards 同名）
-├── pack/                            ← 多入口模式（compact pack）
-│   ├── BUILD_MANIFEST.json
-│   ├── capability-destinations.json
-│   ├── peter-lynch-invest-skill-router/
-│   │   ├── SKILL.md                 ← 来源路由入口
-│   │   ├── test-prompts.json        ← router 的回归用例（35 条）
-│   │   └── references/              ← 12 张卡 + 4 个索引，供 router 内部调用
-│   ├── analyze-checklist-ch15/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json        ← 回归用例（9 条）
-│   ├── classify-six-types/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json        ← 回归用例（9 条）
-│   ├── dangerous-sayings/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json        ← 回归用例（9 条）
-│   ├── financial-checklist-13/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json        ← 回归用例（9 条）
-│   ├── pe-valuation/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json        ← 回归用例（9 条）
-│   ├── sell-rules-by-type/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json        ← 回归用例（9 条）
-│   └── stock-screening-checklists/
-│       ├── SKILL.md
-│       └── test-prompts.json        ← 回归用例（9 条）
-└── evals/
-    └── test-results.md              ← 触发盲测与输出评测的逐项评分
+├── README.md              ← 你正在看的
+├── README.en.md           ← English version
+├── LICENSE                ← MIT
+├── BOOK_OVERVIEW.md       ← 阶段 0 产出：全书 Adler 分析
+├── INDEX.md               ← 阶段 3 产出：skill 总览 + 依赖关系
+├── verified.md            ← 通过三重验证的 13 个单元
+├── TEST_SUMMARY.md        ← 阶段 4 产出：压力测试摘要
+├── CANGJIE_ADAPTATION.md  ← 仓颉适配说明
+├── GITHUB_REPO.md         ← 仓库元数据
+├── test-results.md        ← 测试结果记录
+├── candidates/            ← 阶段 1 产出：原始候选池
+│   ├── frameworks.md      ← 框架与方法候选
+│   ├── principles.md      ← 原则 / 规则 / 计算候选
+│   ├── cases.md           ← 书中案例候选
+│   ├── counter-examples.md← 反例与边界候选
+│   └── glossary.md        ← 术语候选
+├── rejected/              ← 阶段 1.5 产出：被淘汰的单元 + 原因
+├── bundle/                ← 编译事实源
+│   ├── verified.yaml      ← 能力元数据、判据与去向
+│   ├── cards/             ← 能力卡源文件（六段结构）
+│   └── book/              ← overview.md + glossary.md
+├── single/                ← single 模式（1 个入口 + 全部能力卡）
+│   └── peter-lynch-invest-skill/SKILL.md  ← 入口：触发 + 路由表 + 加载规则
+└── pack/                  ← pack 模式（1 个路由入口 + 7 个晋级 skill）
+    └── */SKILL.md         ← 8 个 skill，每个附带 test-prompts.json
 ```
 
 ## 如何使用

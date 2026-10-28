@@ -1,73 +1,62 @@
 {
   "skill": "stock-screening-checklists",
-  "version": "0.1.0",
-  "source_book": "彼得·林奇的成功投资（One Up on Wall Street） — 彼得·林奇、约翰·罗瑟查尔德",
-  "darwin_compatible": true,
+  "version": "1.0.0",
   "test_cases": [
     {
-      "id": "scr-st-01",
+      "id": "should-trigger-01",
       "type": "should_trigger",
-      "prompt": "朋友推荐了一只元宇宙概念股，帮我把关值不值得研究",
-      "expected_behavior": "应激活 stock-screening-checklists，按其 E 段完成「双向筛选清单（13条选股准则+避而不买清单）」相关任务并给出结构化结论。判定依据：线索把关意图；应输出正向命中+负向红旗+是否进入下一步研究，不做估值",
-      "notes": "线索把关意图；应输出正向命中+负向红旗+是否进入下一步研究，不做估值"
+      "prompt": "朋友推荐一只票，做工业废水处理的，名字特别土，基金基本没持仓，帮我把把关",
+      "expected_behavior": "触发双向筛选：负向6类红旗先扫（应全部未命中），再跑正向13条（业务令人厌恶、机构无持股、利基等），输出命中清单+三态结论（进入研究）",
+      "notes": "正面：正向多条命中的典型形态，考的是逐条给证据而非打总分"
     },
     {
-      "id": "scr-st-02",
+      "id": "should-trigger-02",
       "type": "should_trigger",
-      "prompt": "这公司做的是集装箱检测这种无聊生意，机构也没几个关注，算好线索吗",
-      "expected_behavior": "应激活 stock-screening-checklists，按其 E 段完成「双向筛选清单（13条选股准则+避而不买清单）」相关任务并给出结构化结论。判定依据：正向准则变体：业务枯燥+无机构关注两条命中打分",
-      "notes": "正向准则变体：业务枯燥+无机构关注两条命中打分"
+      "prompt": "这只AI算力概念股全网都在推，公司一半收入来自单一大客户，能碰吗？",
+      "expected_behavior": "触发双向筛选：红旗①热门行业热门股+红旗⑤客户集中度（原书阈值25%-50%）硬命中，一票否决输出排除，不再进入估值",
+      "notes": "正面：两条硬红旗同时命中，排除结论有明确出处"
     },
     {
-      "id": "scr-st-03",
+      "id": "should-trigger-03",
       "type": "should_trigger",
-      "prompt": "群里都在推的算力大牛股，现在上车还来得及吗",
-      "expected_behavior": "应激活 stock-screening-checklists，按其 E 段完成「双向筛选清单（13条选股准则+避而不买清单）」相关任务并给出结构化结论。判定依据：负向红旗变体：热门股+小道消息；预期命中避买清单直接排除",
-      "notes": "负向红旗变体：热门股+小道消息；预期命中避买清单直接排除"
+      "prompt": "这家公司去年从集团分拆上市，是不是值得研究一下？",
+      "expected_behavior": "触发双向筛选：准则4分拆上市（须与全新IPO区分——全新IPO是红旗④延伸），核对分拆后资产负债表与内部人买入信号",
+      "notes": "正面：分拆vs IPO是清单里最容易混判的一条"
     },
     {
-      "id": "scr-st-04",
+      "id": "should-trigger-04",
       "type": "should_trigger",
-      "prompt": "My friend tipped me on 'the next Moutai'—worth researching?",
-      "expected_behavior": "应激活 stock-screening-checklists，按其 E 段完成「双向筛选清单（13条选股准则+避而不买清单）」相关任务并给出结构化结论。判定依据：英文变体：『下一个XX』避买类型",
-      "notes": "英文变体：『下一个XX』避买类型"
+      "prompt": "这只票刚改名叫XX智能科技，原来叫XX纺织，是不是有坑？",
+      "expected_behavior": "触发双向筛选：红旗⑥名字花里胡哨（A股判别力弱，改判是否更名赶时髦），结合改名史与业务变化判定",
+      "notes": "正面：A股适配后的名字红旗判法"
     },
     {
-      "id": "scr-info-01",
+      "id": "should-not-trigger-01",
       "type": "should_not_trigger",
-      "prompt": "科创板开户要满足什么条件，门槛是多少",
-      "expected_behavior": "不应激活任何能力：纯信息查询。判定依据：纯信息查询诱饵（开户规则），不涉及候选公司筛选",
-      "notes": "纯信息查询诱饵（开户规则），不涉及候选公司筛选"
+      "prompt": "这只票P/E 40倍，到底贵不贵？",
+      "expected_behavior": "不应触发本卡：估值判断应转 pe-valuation；本卡只回答过不过筛，不回答贵不贵",
+      "notes": "诱饵：同书兄弟能力——筛选与估值分工"
     },
     {
-      "id": "scr-sib-01",
+      "id": "should-not-trigger-02",
       "type": "should_not_trigger",
-      "prompt": "这只医药股80倍市盈率，跟它30%的增速比贵不贵",
-      "expected_behavior": "不应激活本 skill，应激活 pe-valuation。判定依据：兄弟能力诱饵：P/E与增长率比较是估值意图，筛选能力只做准入不做估值",
-      "notes": "跨 skill 混淆诱饵：兄弟能力诱饵：P/E与增长率比较是估值意图，筛选能力只做准入不做估值"
+      "prompt": "帮我全面分析这只股票，做个尽调清单",
+      "expected_behavior": "不应触发本卡：深度逐项核查应转 analyze-checklist-ch15（通用层+类型专项层）",
+      "notes": "诱饵：准入筛选 vs 深度核查，顺序在后"
     },
     {
-      "id": "scr-sib-02",
-      "type": "should_not_trigger",
-      "prompt": "想调研一家上市公司，除了看公告还能从哪些渠道挖信息",
-      "expected_behavior": "不应激活本 skill，应激活 one-up-on-wall-street-router。判定依据：信息获取与调研程序（research-info-gathering，router能力）场景",
-      "notes": "跨 skill 混淆诱饵：信息获取与调研程序（research-info-gathering，router能力）场景"
-    },
-    {
-      "id": "scr-edge-01",
+      "id": "edge-01",
       "type": "edge_case",
-      "prompt": "朋友说的这票我查了下负债挺高，帮我筛筛还能不能要",
-      "expected_behavior": "边界处理：可澄清需求、转路由或谨慎不触发，但须说明理由。判定依据：筛选与财务核查混合。预期：以双向筛选为主回应，负债细查应联动13项财务核查能力，不在此展开完整财报分析",
-      "notes": "边界：筛选与财务核查混合。预期：以双向筛选为主回应，负债细查应联动13项财务核查能力，不在此展开完整财报分析"
+      "prompt": "只知道它做制造业，其他信息都不清楚，能买吗？",
+      "expected_behavior": "边界处理：线索不足——列待查清单（客户集中度、收购明细、机构持仓、内部人增减持等），不默认通过也不默认排除",
+      "notes": "边界：缺输入时的三态之一是待查，不能硬判"
     },
     {
-      "id": "scr-edge-02",
+      "id": "edge-02",
       "type": "edge_case",
-      "prompt": "董事长一直在增持自家股票，能不能重仓杀进去",
-      "expected_behavior": "边界处理：可澄清需求、转路由或谨慎不触发，但须说明理由。判定依据：内部人士增持是正向命中，但『重仓杀进去』是仓位问题。预期：谨慎触发，只给『是否进入下一步研究』结论并明确不给仓位建议",
-      "notes": "边界：内部人士增持是正向命中，但『重仓杀进去』是仓位问题。预期：谨慎触发，只给『是否进入下一步研究』结论并明确不给仓位建议"
+      "prompt": "这家公司高管最近在减持，是不是要跑？",
+      "expected_behavior": "边界处理：内部人士卖出不作负分（多为个人财务原因），除非股价暴涨后多人集中清仓；需结合其他信号，不单凭减持排除",
+      "notes": "边界：反向禁令——卖出噪音 vs 买入信号"
     }
-  ],
-  "minimum_pass_rate": 0.8,
-  "notes": "由 .cangjie/evals/trigger-stock-screening-checklists.json 机械转换；完整评测与基线见 evals/test-results.md 与 evals/output-run/。至少3条should_trigger+2条should_not_trigger(含1条同书兄弟诱饵)+1条edge_case；全部should_not_trigger必须通过(容错0)。"
+  ]
 }

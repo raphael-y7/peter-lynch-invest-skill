@@ -1,73 +1,62 @@
 {
   "skill": "analyze-checklist-ch15",
-  "version": "0.1.0",
-  "source_book": "彼得·林奇的成功投资（One Up on Wall Street） — 彼得·林奇、约翰·罗瑟查尔德",
-  "darwin_compatible": true,
+  "version": "1.0.0",
   "test_cases": [
     {
-      "id": "ana-st-01",
+      "id": "should-trigger-01",
       "type": "should_trigger",
-      "prompt": "帮我全面分析一下伊利股份，该从哪几方面入手",
-      "expected_behavior": "应激活 analyze-checklist-ch15，按其 E 段完成「股票分析要点一览表（第15章通用+六类型专项核查）」相关任务并给出结构化结论。判定依据：通用层核查入口：P/E、机构持股、现金负债、股息、增长来源逐项过",
-      "notes": "通用层核查入口：P/E、机构持股、现金负债、股息、增长来源逐项过"
+      "prompt": "帮我全面分析一下这只票，从哪几个方面看？",
+      "expected_behavior": "触发第15章核查表：先确认类型，再跑通用层六项（P/E、机构持股、内部人买入与回购、收益增长历史、资产负债与财务实力、现金头寸），输出核查表+缺口清单",
+      "notes": "正面：全面核查的标准入口"
     },
     {
-      "id": "ana-st-02",
+      "id": "should-trigger-02",
       "type": "should_trigger",
-      "prompt": "准备认真研究一只股票，给我列份完整核查清单照着过",
-      "expected_behavior": "应激活 analyze-checklist-ch15，按其 E 段完成「股票分析要点一览表（第15章通用+六类型专项核查）」相关任务并给出结构化结论。判定依据：清单组织意图；应输出通用+分类型双层核查表并标注缺口",
-      "notes": "清单组织意图；应输出通用+分类型双层核查表并标注缺口"
+      "prompt": "这是一只周期股，除了P/E还要重点看什么？",
+      "expected_behavior": "触发专项层：周期型核对存货、产能利用率、商品价格、P/E周期位置（反转解读），输出专项核查表",
+      "notes": "正面：类型专项层，考的是不照单全跑"
     },
     {
-      "id": "ana-st-03",
+      "id": "should-trigger-03",
       "type": "should_trigger",
-      "prompt": "拿到一家化工周期股，按周期型的专项要点该查什么",
-      "expected_behavior": "应激活 analyze-checklist-ch15，按其 E 段完成「股票分析要点一览表（第15章通用+六类型专项核查）」相关任务并给出结构化结论。判定依据：分类型专项层变体：周期看存货/产能/价格",
-      "notes": "分类型专项层变体：周期看存货/产能/价格"
+      "prompt": "买入前到底要核查哪些东西？给我列个清单。",
+      "expected_behavior": "触发核查表：输出通用层+对应类型专项层两张表，标注数据缺口与下一步路由（估值/财务/独白）",
+      "notes": "正面：清单交付型请求"
     },
     {
-      "id": "ana-st-04",
+      "id": "should-trigger-04",
       "type": "should_trigger",
-      "prompt": "What's a complete checklist for analyzing a stock?",
-      "expected_behavior": "应激活 analyze-checklist-ch15，按其 E 段完成「股票分析要点一览表（第15章通用+六类型专项核查）」相关任务并给出结构化结论。判定依据：英文变体：完整分析清单（due diligence）",
-      "notes": "英文变体：完整分析清单（due diligence）"
+      "prompt": "困境反转股要查什么？我手里这只刚重整完。",
+      "expected_behavior": "触发专项层：困境反转型核对重整步骤进展、现金、债务趋势、业务是否改善，并提示按新类型重新归类",
+      "notes": "正面：困境反转专项判据"
     },
     {
-      "id": "ana-info-01",
+      "id": "should-not-trigger-01",
       "type": "should_not_trigger",
-      "prompt": "ROE是什么指标，是怎么计算的",
-      "expected_behavior": "不应激活任何能力：纯信息查询。判定依据：纯定义查询诱饵：指标解释不构成对具体股票的核查任务",
-      "notes": "纯定义查询诱饵：指标解释不构成对具体股票的核查任务"
+      "prompt": "这票是不是雷？有没有什么坑？",
+      "expected_behavior": "不应触发本卡：准入筛选与红旗排除应转 stock-screening-checklists",
+      "notes": "诱饵：筛选在前、深度核查在后"
     },
     {
-      "id": "ana-sib-01",
+      "id": "should-not-trigger-02",
       "type": "should_not_trigger",
-      "prompt": "帮我翻翻这家公司资产负债表，负债和现金怎么样",
-      "expected_behavior": "不应激活本 skill，应激活 financial-checklist-13。判定依据：兄弟能力诱饵：单一财务维度核查而非全面分析",
-      "notes": "跨 skill 混淆诱饵：兄弟能力诱饵：单一财务维度核查而非全面分析"
+      "prompt": "帮我组织一下买入理由，看能不能讲清楚。",
+      "expected_behavior": "不应触发本卡：理由陈述收口应转 two-minute-story（独白）",
+      "notes": "诱饵：清单核查 vs 独白叙述"
     },
     {
-      "id": "ana-sib-02",
-      "type": "should_not_trigger",
-      "prompt": "明天就要下单了，帮我把买这只股的理由捋成一段话",
-      "expected_behavior": "不应激活本 skill，应激活 one-up-on-wall-street-router。判定依据：两分钟独白（router能力）场景。区分口径：清单核查 vs 理由陈述收口",
-      "notes": "跨 skill 混淆诱饵：两分钟独白（router能力）场景。区分口径：清单核查 vs 理由陈述收口"
-    },
-    {
-      "id": "ana-edge-01",
+      "id": "edge-01",
       "type": "edge_case",
-      "prompt": "帮我全面分析下贵州茅台，顺便告诉我值不值得买",
-      "expected_behavior": "边界处理：可澄清需求、转路由或谨慎不触发，但须说明理由。判定依据：核查+决策混合。预期：可触发清单核查，但买入决策收口属两分钟独白，应输出核查表并标注决策缺口，不直接给买卖结论",
-      "notes": "边界：核查+决策混合。预期：可触发清单核查，但买入决策收口属两分钟独白，应输出核查表并标注决策缺口，不直接给买卖结论"
+      "prompt": "类型我也说不准，你直接把全套清单给我吧。",
+      "expected_behavior": "边界处理：判停——类型未定先归型，否则P/E与收益历史解读方向会读反；不得六张专项表全跑",
+      "notes": "边界：流程前置条件缺失"
     },
     {
-      "id": "ana-edge-02",
+      "id": "edge-02",
       "type": "edge_case",
-      "prompt": "帮我把自选池里18只股票每只都做个全面分析",
-      "expected_behavior": "边界处理：可澄清需求、转路由或谨慎不触发，但须说明理由。判定依据：批量深度分析边界。预期倾向降级：先分类/筛选缩小范围，再对少数标的走完整清单，不机械触发18次完整核查",
-      "notes": "边界：批量深度分析边界。预期倾向降级：先分类/筛选缩小范围，再对少数标的走完整清单，不机械触发18次完整核查"
+      "prompt": "通用层六项都过了，是不是就可以买了？",
+      "expected_behavior": "边界处理：只过通用层＝假核查——专项层（如快速增长型的异地复制验证）漏跑是Bildner's式亏损根源；且清单不替代估值结论",
+      "notes": "边界：防把核查通过误当买入许可"
     }
-  ],
-  "minimum_pass_rate": 0.8,
-  "notes": "由 .cangjie/evals/trigger-analyze-checklist-ch15.json 机械转换；完整评测与基线见 evals/test-results.md 与 evals/output-run/。至少3条should_trigger+2条should_not_trigger(含1条同书兄弟诱饵)+1条edge_case；全部should_not_trigger必须通过(容错0)。"
+  ]
 }
