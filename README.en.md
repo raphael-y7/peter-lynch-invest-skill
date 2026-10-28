@@ -217,6 +217,9 @@ This repository publishes distilled skills, indexes and rule quick references on
 
 All numeric criteria in the book (growth bands, P/E tiers, same-store sales declines, position counts, gain bands, etc.) are case- and experience-based rules without statistical backtesting; test them on your own instruments and declare the convention you use. Nothing in this repository is investment advice.
 
+
+This project is released under the MIT license, which permits free use, modification and redistribution, including commercial use. If you intend to use it in a commercial product or a paid service, please contact the author first to describe your use case — this is the author's request, not an additional condition on top of the MIT license.
+
 ## License
 
 [MIT](https://opensource.org/licenses/MIT)
