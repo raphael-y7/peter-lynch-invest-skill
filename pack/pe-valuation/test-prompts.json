@@ -1,0 +1,73 @@
+{
+  "skill": "pe-valuation",
+  "version": "0.1.0",
+  "source_book": "彼得·林奇的成功投资（One Up on Wall Street） — 彼得·林奇、约翰·罗瑟查尔德",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "pe-st-01",
+      "type": "should_trigger",
+      "prompt": "现在A股整体市盈率在什么水位，这时候进场买股票贵不贵",
+      "expected_behavior": "应激活 pe-valuation，按其 E 段完成「市盈率与收益估值口径」相关任务并给出结构化结论。判定依据：整体市场P/E水位判断（买入窗口之一）；注意是水位判断不是大盘走势预测",
+      "notes": "整体市场P/E水位判断（买入窗口之一）；注意是水位判断不是大盘走势预测"
+    },
+    {
+      "id": "pe-st-02",
+      "type": "should_trigger",
+      "prompt": "利润一直在涨股价却横盘了半年，这种背离说明什么",
+      "expected_behavior": "应激活 pe-valuation，按其 E 段完成「市盈率与收益估值口径」相关任务并给出结构化结论。判定依据：收益线与股价线背离信号；应指向等待回归的解释框架",
+      "notes": "收益线与股价线背离信号；应指向等待回归的解释框架"
+    },
+    {
+      "id": "pe-st-03",
+      "type": "should_trigger",
+      "prompt": "这只创业板股80倍市盈率增速才20%，还能追吗",
+      "expected_behavior": "应激活 pe-valuation，按其 E 段完成「市盈率与收益估值口径」相关任务并给出结构化结论。判定依据：P/E与增长率比较：80 vs 20 远超两倍危险线，应得出偏贵结论",
+      "notes": "P/E与增长率比较：80 vs 20 远超两倍危险线，应得出偏贵结论"
+    },
+    {
+      "id": "pe-st-04",
+      "type": "should_trigger",
+      "prompt": "Is a 40 P/E too high for a stock growing 20% a year?",
+      "expected_behavior": "应激活 pe-valuation，按其 E 段完成「市盈率与收益估值口径」相关任务并给出结构化结论。判定依据：英文变体：P/E vs 增长率口径（(20+股息)/40 判断吸引度）",
+      "notes": "英文变体：P/E vs 增长率口径（(20+股息)/40 判断吸引度）"
+    },
+    {
+      "id": "pe-info-01",
+      "type": "should_not_trigger",
+      "prompt": "市盈率TTM和静态市盈率有什么区别",
+      "expected_behavior": "不应激活任何能力：纯信息查询。判定依据：纯定义查询诱饵：术语解释不构成对具体股票的估值任务",
+      "notes": "纯定义查询诱饵：术语解释不构成对具体股票的估值任务"
+    },
+    {
+      "id": "pe-sib-01",
+      "type": "should_not_trigger",
+      "prompt": "帮我看看这家公司现金多不多，负债结构危不危险",
+      "expected_behavior": "不应激活本 skill，应激活 financial-checklist-13。判定依据：兄弟能力诱饵：现金头寸与负债结构属13项财务核查，不是估值口径",
+      "notes": "跨 skill 混淆诱饵：兄弟能力诱饵：现金头寸与负债结构属13项财务核查，不是估值口径"
+    },
+    {
+      "id": "pe-sib-02",
+      "type": "should_not_trigger",
+      "prompt": "我8万块钱买了11只股票，是不是太分散了",
+      "expected_behavior": "不应激活本 skill，应激活 one-up-on-wall-street-router。判定依据：组合构建纪律（portfolio-rules，router能力）场景：持股数量问题",
+      "notes": "跨 skill 混淆诱饵：组合构建纪律（portfolio-rules，router能力）场景：持股数量问题"
+    },
+    {
+      "id": "pe-edge-01",
+      "type": "edge_case",
+      "prompt": "这钢铁股才5倍市盈率，是不是白捡的便宜",
+      "expected_behavior": "边界处理：可澄清需求、转路由或谨慎不触发，但须说明理由。判定依据：周期股低P/E陷阱。预期：谨慎触发——必须按周期位置反转解读（低P/E可能是周期顶部预警），周期位置不明时先不下『便宜』结论",
+      "notes": "边界：周期股低P/E陷阱。预期：谨慎触发——必须按周期位置反转解读（低P/E可能是周期顶部预警），周期位置不明时先不下『便宜』结论"
+    },
+    {
+      "id": "pe-edge-02",
+      "type": "edge_case",
+      "prompt": "感觉大盘涨太多了，后面会不会崩",
+      "expected_behavior": "边界处理：可澄清需求、转路由或谨慎不触发，但须说明理由。判定依据：大盘走势预测意图，书中明确否定。预期倾向不触发估值流程，除非讨论落到具体个股或整体P/E数据判断",
+      "notes": "边界：大盘走势预测意图，书中明确否定。预期倾向不触发估值流程，除非讨论落到具体个股或整体P/E数据判断"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "由 .cangjie/evals/trigger-pe-valuation.json 机械转换；完整评测与基线见 evals/test-results.md 与 evals/output-run/。至少3条should_trigger+2条should_not_trigger(含1条同书兄弟诱饵)+1条edge_case；全部should_not_trigger必须通过(容错0)。"
+}

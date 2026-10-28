@@ -134,6 +134,8 @@ peter-lynch-invest-skill/
 ├── README.en.md                     ← you are reading this
 ├── LICENSE                          ← MIT
 ├── BOOK_OVERVIEW.md                 ← whole-book comprehension (Adler four-step, stage 0 output)
+├── TEST_SUMMARY.md                  ← stage 4 stress-test summary (scope / structural checks / results)
+├── CANGJIE_ADAPTATION.md            ← Cangjie adaptation note (text state / goals / evidence rules / boundaries)
 ├── verified.md                      ← triple-verification conclusions for the 13 canonical units
 ├── INDEX.md                         ← skill map: capability table + dependencies + loading order
 ├── bundle/                          ← canonical bundle (audit artifact, source of truth)
@@ -154,10 +156,21 @@ peter-lynch-invest-skill/
 │   └── book/                        ← book-level material
 │       ├── overview.md
 │       └── glossary.md
+├── candidates/                      ← stage 1 extractor candidate pool (609 items, audit archive)
+│   ├── frameworks.md                ← 75 frameworks (merged)
+│   ├── frameworks.partA.md          ← frameworks, part A (32)
+│   ├── frameworks.partB.md          ← frameworks, part B (43)
+│   ├── principles.md                ← 288 principles (merged)
+│   ├── principles.partA.md          ← principles, part A (122)
+│   ├── principles.partB.md          ← principles, part B (166)
+│   ├── cases.md                     ← 132 cases
+│   ├── counter-examples.md          ← 89 counter-examples
+│   └── glossary.md                  ← 25 glossary entries
 ├── single/                          ← single-entry build
 │   └── peter-lynch-invest-skill/
 │       ├── SKILL.md                 ← entry: triggers + routing table + loading rules
 │       ├── BUILD_MANIFEST.json      ← build manifest and file hashes
+│       ├── test-prompts.json        ← regression cases for the entry skill (10)
 │       └── references/
 │           ├── overview.md          ← whole-book overview
 │           ├── capability-index.md  ← full intent and keyword index
@@ -169,21 +182,29 @@ peter-lynch-invest-skill/
 │   ├── capability-destinations.json
 │   ├── peter-lynch-invest-skill-router/
 │   │   ├── SKILL.md                 ← source router entry
+│   │   ├── test-prompts.json        ← regression cases for the router (35)
 │   │   └── references/              ← 12 cards + 4 indexes, called by the router
 │   ├── analyze-checklist-ch15/
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── test-prompts.json        ← regression cases (9)
 │   ├── classify-six-types/
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── test-prompts.json        ← regression cases (9)
 │   ├── dangerous-sayings/
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── test-prompts.json        ← regression cases (9)
 │   ├── financial-checklist-13/
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── test-prompts.json        ← regression cases (9)
 │   ├── pe-valuation/
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── test-prompts.json        ← regression cases (9)
 │   ├── sell-rules-by-type/
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── test-prompts.json        ← regression cases (9)
 │   └── stock-screening-checklists/
-│       └── SKILL.md
+│       ├── SKILL.md
+│       └── test-prompts.json        ← regression cases (9)
 └── evals/
     └── test-results.md              ← trigger blind tests and output evaluation, item by item
 ```

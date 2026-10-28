@@ -134,6 +134,8 @@ peter-lynch-invest-skill/
 ├── README.en.md                     ← English version
 ├── LICENSE                          ← MIT
 ├── BOOK_OVERVIEW.md                 ← 整书理解（Adler 四步拆解，阶段 0 产出）
+├── TEST_SUMMARY.md                  ← 阶段 4 压力测试摘要（范围 / 结构检查 / 结果）
+├── CANGJIE_ADAPTATION.md            ← 仓颉适配说明（文本状态 / 蒸馏目标 / 证据规则 / 使用边界）
 ├── verified.md                      ← 13 个规范单元的三重验证结论
 ├── INDEX.md                         ← skill 地图：能力总表 + 依赖关系 + 加载顺序
 ├── bundle/                          ← 规范 Bundle（审计产物，源真相）
@@ -154,10 +156,21 @@ peter-lynch-invest-skill/
 │   └── book/                        ← 整书层素材
 │       ├── overview.md
 │       └── glossary.md
+├── candidates/                      ← 阶段 1 五提取器候选池（609 条，审计留档）
+│   ├── frameworks.md                ← 框架 75 条（合并稿）
+│   ├── frameworks.partA.md          ← 框架分卷 A（32 条）
+│   ├── frameworks.partB.md          ← 框架分卷 B（43 条）
+│   ├── principles.md                ← 原则 288 条（合并稿）
+│   ├── principles.partA.md          ← 原则分卷 A（122 条）
+│   ├── principles.partB.md          ← 原则分卷 B（166 条）
+│   ├── cases.md                     ← 案例 132 条
+│   ├── counter-examples.md          ← 反例 89 条
+│   └── glossary.md                  ← 术语 25 条
 ├── single/                          ← 单一入口模式
 │   └── peter-lynch-invest-skill/
 │       ├── SKILL.md                 ← 入口：触发条件 + 路由表 + 加载规则
 │       ├── BUILD_MANIFEST.json      ← 编译清单与文件哈希
+│       ├── test-prompts.json        ← 入口 skill 的回归用例（10 条）
 │       └── references/
 │           ├── overview.md          ← 整书概览
 │           ├── capability-index.md  ← 完整意图与关键词索引
@@ -169,21 +182,29 @@ peter-lynch-invest-skill/
 │   ├── capability-destinations.json
 │   ├── peter-lynch-invest-skill-router/
 │   │   ├── SKILL.md                 ← 来源路由入口
+│   │   ├── test-prompts.json        ← router 的回归用例（35 条）
 │   │   └── references/              ← 12 张卡 + 4 个索引，供 router 内部调用
 │   ├── analyze-checklist-ch15/
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── test-prompts.json        ← 回归用例（9 条）
 │   ├── classify-six-types/
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── test-prompts.json        ← 回归用例（9 条）
 │   ├── dangerous-sayings/
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── test-prompts.json        ← 回归用例（9 条）
 │   ├── financial-checklist-13/
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── test-prompts.json        ← 回归用例（9 条）
 │   ├── pe-valuation/
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── test-prompts.json        ← 回归用例（9 条）
 │   ├── sell-rules-by-type/
-│   │   └── SKILL.md
+│   │   ├── SKILL.md
+│   │   └── test-prompts.json        ← 回归用例（9 条）
 │   └── stock-screening-checklists/
-│       └── SKILL.md
+│       ├── SKILL.md
+│       └── test-prompts.json        ← 回归用例（9 条）
 └── evals/
     └── test-results.md              ← 触发盲测与输出评测的逐项评分
 ```

@@ -1,0 +1,73 @@
+{
+  "skill": "dangerous-sayings",
+  "version": "0.1.0",
+  "source_book": "彼得·林奇的成功投资（One Up on Wall Street） — 彼得·林奇、约翰·罗瑟查尔德",
+  "darwin_compatible": true,
+  "test_cases": [
+    {
+      "id": "dgr-st-01",
+      "type": "should_trigger",
+      "prompt": "都亏40%了，这票不可能再跌了，我想补仓摊成本",
+      "expected_behavior": "应激活 dangerous-sayings，按其 E 段完成「12种危险说法识别与反驳+衍生品否定」相关任务并给出结构化结论。判定依据：危险说法『不可能再跌了』+抄底动作；应识别说法并给出书中反驳（可再跌一半）",
+      "notes": "危险说法『不可能再跌了』+抄底动作；应识别说法并给出书中反驳（可再跌一半）"
+    },
+    {
+      "id": "dgr-st-02",
+      "type": "should_trigger",
+      "prompt": "这股票才3块钱，还能亏到哪去，买点玩玩",
+      "expected_behavior": "应激活 dangerous-sayings，按其 E 段完成「12种危险说法识别与反驳+衍生品否定」相关任务并给出结构化结论。判定依据：低价股说法『才3块钱能亏多少』A股版",
+      "notes": "低价股说法『才3块钱能亏多少』A股版"
+    },
+    {
+      "id": "dgr-st-03",
+      "type": "should_trigger",
+      "prompt": "朋友喊我一起做股指期货，说小资金能撬大收益",
+      "expected_behavior": "应激活 dangerous-sayings，按其 E 段完成「12种危险说法识别与反驳+衍生品否定」相关任务并给出结构化结论。判定依据：衍生品提议：应给出否定结论（期货杠杆亏损可超本金），不做策略展开",
+      "notes": "衍生品提议：应给出否定结论（期货杠杆亏损可超本金），不做策略展开"
+    },
+    {
+      "id": "dgr-st-04",
+      "type": "should_trigger",
+      "prompt": "It's already down 60%, it can't fall much further, right?",
+      "expected_behavior": "应激活 dangerous-sayings，按其 E 段完成「12种危险说法识别与反驳+衍生品否定」相关任务并给出结构化结论。判定依据：英文变体：跌到底部心态说法",
+      "notes": "英文变体：跌到底部心态说法"
+    },
+    {
+      "id": "dgr-info-01",
+      "type": "should_not_trigger",
+      "prompt": "现在卖股票的印花税税率是多少",
+      "expected_behavior": "不应激活任何能力：纯信息查询。判定依据：纯信息查询诱饵（税费规则），无心理说法无操作建议请求",
+      "notes": "纯信息查询诱饵（税费规则），无心理说法无操作建议请求"
+    },
+    {
+      "id": "dgr-sib-01",
+      "type": "should_not_trigger",
+      "prompt": "手里这只稳增长的股涨了70%，要不要卖掉",
+      "expected_behavior": "不应激活本 skill，应激活 sell-rules-by-type。判定依据：兄弟能力诱饵：正常卖出判据问题，话语中不含危险说法",
+      "notes": "跨 skill 混淆诱饵：兄弟能力诱饵：正常卖出判据问题，话语中不含危险说法"
+    },
+    {
+      "id": "dgr-sib-02",
+      "type": "should_not_trigger",
+      "prompt": "我没炒过股，想拿年底装修要用的钱入市试试，行吗",
+      "expected_behavior": "不应激活本 skill，应激活 one-up-on-wall-street-router。判定依据：入市自测三问（self-test-eligibility，router能力）场景：两三年内要用的钱不入市",
+      "notes": "跨 skill 混淆诱饵：入市自测三问（self-test-eligibility，router能力）场景：两三年内要用的钱不入市"
+    },
+    {
+      "id": "dgr-edge-01",
+      "type": "edge_case",
+      "prompt": "这只票拿了一年多不涨，想割了去追现在最火的板块",
+      "expected_behavior": "边界处理：可澄清需求、转路由或谨慎不触发，但须说明理由。判定依据：复合边界：含『等太久了』『抓下一只』危险说法+追热门（避买红旗）。预期谨慎触发：先做说法识别反驳，追热板块部分联动避买结论，不鼓励换仓动作",
+      "notes": "边界：复合边界：含『等太久了』『抓下一只』危险说法+追热门（避买红旗）。预期谨慎触发：先做说法识别反驳，追热板块部分联动避买结论，不鼓励换仓动作"
+    },
+    {
+      "id": "dgr-edge-02",
+      "type": "edge_case",
+      "prompt": "跌成这样我睡不着，是不是我太贪了该反思一下",
+      "expected_behavior": "边界处理：可澄清需求、转路由或谨慎不触发，但须说明理由。判定依据：情绪表达但未说出12条中任何具体说法、无明确操作请求。预期倾向不触发反驳清单，导向冷静的基本面复查而非买卖动作",
+      "notes": "边界：情绪表达但未说出12条中任何具体说法、无明确操作请求。预期倾向不触发反驳清单，导向冷静的基本面复查而非买卖动作"
+    }
+  ],
+  "minimum_pass_rate": 0.8,
+  "notes": "由 .cangjie/evals/trigger-dangerous-sayings.json 机械转换；完整评测与基线见 evals/test-results.md 与 evals/output-run/。至少3条should_trigger+2条should_not_trigger(含1条同书兄弟诱饵)+1条edge_case；全部should_not_trigger必须通过(容错0)。"
+}
